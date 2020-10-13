@@ -5,11 +5,11 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: { // data
-    poducts: [],
+    products: [],
   },
   getters: { // computed properties
-    productsCount() {
-
+    availableProducts(state, getters) {
+      return state.products.filter(product => product.inventory > 0);
     }
   },
   actions: { // methods
