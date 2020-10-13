@@ -1,12 +1,19 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <ProductList />
   </div>
 </template>
+
+<script>
+import ProductList from "@/components/ProductList.vue";
+
+export default {
+  name: "app",
+  components: {
+    ProductList,
+  }
+}
+</script>
 
 <style>
 #app {
