@@ -38,10 +38,14 @@ export default {
 .products, .cart {
   display: inline-block;
   vertical-align: top;
+  border: 1px solid lightgrey;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .products {
   width: 60%;
+  margin-right: 15px;
 }
 
 </style>
