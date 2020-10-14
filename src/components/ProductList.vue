@@ -7,6 +7,8 @@
         <ul v-else>
             <li v-for="product in products" :key="product.id"> 
                 {{product.title}} - {{product.price}} 
+
+                <button @click="addProductToCart(product)">Add To Cart</button>
             </li>
         </ul>
     </div>
@@ -25,6 +27,14 @@ export default {
             return this.$store.getters.availableProducts;
         }
     },
+
+    methods: {
+        addProductToCart(product) {
+            this.$store.dispatch('addProductToCart', product);
+        }
+
+    },
+
     created() {
         this.loading = true;
         this.$store.dispatch('fetchProducts')
