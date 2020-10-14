@@ -4,7 +4,7 @@
         <div v-if="loading">
             <Loading /> 
         </div>
-        <ul v-else>
+        <!-- <ul v-else>
             <li v-for="product in products" :key="product.id"> 
                 {{product.title}} - {{product.price | currency }} - {{product.inventory}}
 
@@ -14,17 +14,26 @@
                     Add To Cart
                 </button>
             </li>
-        </ul>
+        </ul> -->
+        <div v-else>
+            <ProductItem 
+                v-for="product in products" 
+                :key="product.id"
+                :product="product"
+            ></ProductItem>
+        </div>
     </div>
 </template>
 
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex';
 import Loading from "@/components/Loading";
+import ProductItem from "@/components/ProductItem"
 
 export default {
     components: {
         Loading,
+        ProductItem,
     },
     data() {
         return {
