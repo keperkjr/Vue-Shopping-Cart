@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1> Shopping Cart </h1>
+        <p v-show="!products.length"><i>Please add some products to cart.</i></p>
         <ul>
             <li v-for="product in products" :key="product.id">
                 {{product.title}} - {{product.price | currency}} - {{product.quantity}}

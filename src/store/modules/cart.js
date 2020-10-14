@@ -50,9 +50,12 @@ export default {
 
     actions: {
         addProductToCart(context, product) {
+            context.commit('setCheckoutStatus', null)
             if (!context.rootGetters['products/productIsInStock'](product)) {
               // Out of stock
-              throw new Error(`${product.title} is out of stock!`);
+              let message = `${product.title} is out of stock!`;
+              context.commit('setCheckoutStatus', message);
+              throw new Error(message);
             }
       
             const cartItem = context.state.items.find(item => item.id == product.id);

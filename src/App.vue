@@ -1,10 +1,16 @@
+<!-- https://vueschool.io/lessons/create-a-new-project-with-vue-cli -->
+
 <template>
   <div id="app">
-    <ProductList />
-
-    <hr />
-    <ShoppingCart />
-  </div>
+    <h1> Shopping Cart Example </h1>
+    <div class="products">
+      <ProductList />
+    </div>
+    <!-- <hr /> -->
+    <div class="cart">
+      <ShoppingCart />
+    </div>
+  </div>  
 </template>
 
 <script>
@@ -29,16 +35,13 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.products, .cart {
+  display: inline-block;
+  vertical-align: top;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.products {
+  width: 60%;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
