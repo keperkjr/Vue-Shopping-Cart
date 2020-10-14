@@ -27,7 +27,7 @@ export default new Vuex.Store({
       });      
     },
 
-    addToCart(context, product) {
+    addProductToCart(context, product) {
       if (product.inventory < 1) {
         // Out of stock
         throw new Error('Item is out of stock!')
