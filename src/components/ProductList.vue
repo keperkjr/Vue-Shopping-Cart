@@ -34,11 +34,12 @@ export default {
 
     computed: {
         ...mapState({
-            products: state => state.products.items,
+            products: state => state.products.items,            
         }),
 
         ...mapGetters('products', {
-            productIsInStock: 'productIsInStock'
+            productIsInStock: 'productIsInStock',
+            availableProducts: 'availableProducts',
         })
         // products() {
         //     // return this.$store.getters.availableProducts;
@@ -51,7 +52,7 @@ export default {
     },
 
     methods: {
-        ...mapActions( {
+        ...mapActions({
             fetchProducts: 'products/fetchProducts',
             addProductToCart: 'cart/addProductToCart',
         }),
