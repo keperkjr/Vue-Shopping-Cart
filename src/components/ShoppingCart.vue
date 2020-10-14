@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1> Shopping Cart </h1>
+        <div class="headerText"> Shopping Cart </div>
         <p v-show="!products.length"><i>Please add some products to cart.</i></p>
         <ul>
             <li v-for="product in products" :key="product.id">
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-h1 {
+.headerText {
     vertical-align: top;
     display: inline;
 }

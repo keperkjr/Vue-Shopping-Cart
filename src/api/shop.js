@@ -8,8 +8,8 @@ const _products = [
 ]
 
 export default {
-  getProducts (cb) {
-    setTimeout(() => cb(_products), 100)
+  getProducts (cb, timeout = 100) {
+    setTimeout(() => cb(_products), timeout)
   },
 
   buyProducts (products, cb, errorCb) {

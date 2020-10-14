@@ -1,9 +1,9 @@
 <template>
     <div> 
-        <h1> Product List </h1>
-        <img v-if="loading"
-            src="https://i.imgur.com/JfPpwOA.gif"
-        >
+        <div class="headerText"> Product List </div>
+        <div v-if="loading">
+            <Loading /> 
+        </div>
         <ul v-else>
             <li v-for="product in products" :key="product.id"> 
                 {{product.title}} - {{product.price | currency }} - {{product.inventory}}
@@ -19,9 +19,13 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from 'vuex'
+import {mapState, mapGetters, mapActions} from 'vuex';
+import Loading from "@/components/Loading";
 
 export default {
+    components: {
+        Loading,
+    },
     data() {
         return {
             loading: false,
@@ -69,7 +73,7 @@ export default {
 </script>
 
 <style scoped>
-h1 {
+.headerText {
     vertical-align: top;
     display: inline;
 }

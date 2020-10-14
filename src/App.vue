@@ -2,7 +2,7 @@
 
 <template>
   <div id="app">
-    <h1> Shopping Cart Example </h1>
+    <div class="headerText"> Shopping Cart Example </div>
     <div class="products">
       <ProductList />
     </div>
@@ -33,6 +33,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.headerText {
+  font-size: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;  
 }
 
 .products, .cart {

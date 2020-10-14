@@ -37,7 +37,7 @@ export default {
               shop.getProducts(products => {
                 context.commit('setProducts', products);
                 resolve();
-              });        
+              }, 1000);        
             });      
         },
     },
