@@ -5,11 +5,18 @@
         <ul>
             <li v-for="product in products" :key="product.id">
                 {{product.title}} - {{product.price | currency}} - {{product.quantity}}
+                <el-button 
+                    type="primary" 
+                    size="small"
+                    plain
+                    @click="removeProductFromCart(product)">
+                    Remove 1
+                </el-button>                 
             </li>
         </ul>
         <p> Total: {{total | currency}} </p>
 
-        <el-button @click="cartCheckout()" :loading="processing"> Checkout</el-button>
+        <el-button type="primary" @click="cartCheckout()" :loading="processing"> Checkout</el-button>
         <p v-if="checkoutStatus">{{checkoutStatus}}</p>
     </div>
 </template>
@@ -43,6 +50,7 @@ export default {
     methods: {
         ...mapActions('cart', {
             checkout: 'checkout',
+            removeProductFromCart: 'removeProductFromCart',
         }),
         async cartCheckout() {
             this.processing = true;
@@ -50,16 +58,24 @@ export default {
                 title: 'Success!',
                 type: 'success',
                 message: `You have successfully purchased ${this.products.length} item(s)!`,
-            }    
-            try {
-                await this.checkout();
-            } catch (e) {
+            }             
+            if (this.products.length < 1) {
                 message = {
-                    title: 'Error!',
-                    type: 'error',
-                    message: 'Oh no, something went wrong... Please try again!',
-                }                
-            }
+                    title: 'Oops...',
+                    type: 'info',
+                    message: 'Please add some products to cart before checking out!',
+                }  
+            } else {
+                try {
+                    await this.checkout();
+                } catch (e) {
+                    message = {
+                        title: 'Error!',
+                        type: 'error',
+                        message: 'Oh no, something went wrong... Please try again!',
+                    }                
+                }
+            }   
             this.processing = false;
             this.$notify(message);  
         }

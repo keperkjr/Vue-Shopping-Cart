@@ -2,16 +2,19 @@ s<template>
     <section class="inline">        
         <article class="container">
             <div class="image-container" 
-                :class="{'sold-out': isSoldOut(product) }" >
-                <img class="image" :src="getImageSrc(product)" />
+                :class="{'sold-out': isSoldOut }" >
+                <img class="image" :src="getImageSrc()" />
             </div>
             <div class="info">
                 {{product.title}} - {{product.price | currency }} - {{product.inventory}}
-                <button 
-                :disabled="!productIsInStock(product)"
-                @click="addProductToCart(product)">
+                <el-button 
+                    type="primary" 
+                    size="small"
+                    plain
+                    :disabled="!productIsInStock(product)"
+                    @click="addProductToCart(product)">
                     Add To Cart
-                </button>                
+                </el-button>                
             </div>            
         </article>
     </section>
@@ -23,7 +26,6 @@ import {mapState, mapGetters, mapActions} from 'vuex';
 export default {
     data() {
         return {
-
         }
     },
     props: {
@@ -36,22 +38,21 @@ export default {
         ...mapGetters('products', {
             productIsInStock: 'productIsInStock',
             availableProducts: 'availableProducts',
-        })        
+        }),  
+        isSoldOut() {
+            let result = !this.$store.getters['products/productIsInStock'](this.product);
+            // result = true;
+            return result;
+        },                     
     },
     methods: {
         ...mapActions({
             addProductToCart: 'cart/addProductToCart',
         }),
-
-        isSoldOut(product) {
-            let result = !this.$store.getters['products/productIsInStock'];
-            // result = true;
-            return result;
-        },
-        getImageSrc(product) {
-            let image = product.image || 'https://www.immigrantmagazine.com/wp-content/uploads/2020/07/no-image-available-png-3.png';
-            if (this.isSoldOut(product)) {
-                //image = "https://www.freepngimg.com/thumb/sold_out/9-2-sold-out-png-pic-thumb.png";
+        getImageSrc() {
+            let image = this.product.image || 'https://www.immigrantmagazine.com/wp-content/uploads/2020/07/no-image-available-png-3.png';
+            if (this.isSoldOut) {
+                image = "https://www.freepngimg.com/thumb/sold_out/9-2-sold-out-png-pic-thumb.png";
             }
             return image;
         }
@@ -101,7 +102,7 @@ export default {
 
 .info {
     font-weight: bold;
-    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px solid lightgrey;
 }
 </style>

@@ -13,12 +13,13 @@ export default {
     getters: {
         cartProducts(state, getters, rootState, rootGetters) {
             return state.items.map(cartItem => {
-              const product = rootState.products.items.find(product => product.id == cartItem.id);
-              return {
-                title: product.title,
-                price: product.price,
-                quantity: cartItem.quantity,
-              };
+                const product = rootState.products.items.find(product => product.id == cartItem.id);
+                return {
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    quantity: cartItem.quantity,
+                };
             });
         },
       
@@ -27,10 +28,17 @@ export default {
         },
 
         getCartItem(state, getters) {
-            return ({id}) => {
-                return state.items.find(item => item.id == id);
+            return (id) => {
+                id = (typeof id !== 'object') ? id : getters.getCartItemIndex(id);
+                return state.items[id];
             } 
-        },        
+        },
+
+        getCartItemIndex(state, getters) {
+            return ({id}) => {
+                return state.items.findIndex(item => item.id === id);
+            } 
+        },                 
     },
 
     mutations: {
@@ -41,13 +49,17 @@ export default {
             });
         },
 
+        removeProductFromCart(state, index) {
+            state.items.splice(index, 1);
+        },          
+
         addItemQuantity(state, cartItem) {
             cartItem.quantity++;
         },  
 
-        removeItemQuantity(state, cartItem) {
-            cartItem.quantity++;
-        },          
+        subtractItemQuantity(state, cartItem) {
+            cartItem.quantity--;
+        },                 
         
         setCheckoutStatus(state, status) {
             state.checkoutStatus = status;
@@ -59,24 +71,43 @@ export default {
     },
 
     actions: {
+        removeProductFromCart(context, product) {
+            context.commit('setCheckoutStatus', null);
+            const index = context.getters.getCartItemIndex(product);            
+            if (index < 0) {
+                let message = `${product.title} does not exist in the cart!`;
+                context.commit('setCheckoutStatus', message);
+                throw new Error(message);
+            }            
+            const cartItem = context.getters.getCartItem(index);
+            if (cartItem.quantity <= 1) {
+                // remove the item from the the cart
+                context.commit('removeProductFromCart', index);
+            } else {
+              // subtract item quantity
+              context.commit('subtractItemQuantity', cartItem);
+            }
+            let originalProduct = context.rootGetters['products/getProductItem'](product);            
+            context.commit('products/addProductQuantity', originalProduct, {root: true});            
+        },
+
         addProductToCart(context, product) {
-            context.commit('setCheckoutStatus', null)
+            context.commit('setCheckoutStatus', null);
             if (!context.rootGetters['products/productIsInStock'](product)) {
-              // Out of stock
-              let message = `${product.title} is out of stock!`;
-              context.commit('setCheckoutStatus', message);
-              throw new Error(message);
+                // Out of stock
+                let message = `${product.title} is out of stock!`;
+                context.commit('setCheckoutStatus', message);
+                throw new Error(message);
             }
 
             const cartItem = context.getters.getCartItem(product);
             if (!cartItem) {
-              // add item to the cart
-              context.commit('pushProductToCart', product.id);
+                // add item to the cart
+                context.commit('pushProductToCart', product.id);
             } else {
               // increment item quantity
               context.commit('addItemQuantity', cartItem);
             }
-      
             context.commit('products/decrementProductQuantity', product, {root: true});
         },
 

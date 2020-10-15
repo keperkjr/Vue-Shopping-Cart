@@ -19,9 +19,16 @@ export default {
         },
         getProductItem(state, getters) {
             return (id) => {
-                return getProductItem(state, id)
+                id = (typeof id !== 'object') ? id : getters.getProductItemIndex(id);
+                return state.items[id];
             } 
-        },        
+        }, 
+    
+        getProductItemIndex(state, getters) {
+            return ({id}) => {
+                return state.items.findIndex(item => item.id === id);
+            }  
+        }        
     },
 
     mutations: {
@@ -31,7 +38,7 @@ export default {
         },
     
         decrementProductQuantity(state, product) {
-            getProductItem(state, product).inventory--;
+            product.inventory--;
         },
 
         addProductQuantity(state, product) {
@@ -52,10 +59,11 @@ export default {
     },
 }
 
-function getProductItem(state, id) {
-    return state.items[getProductItemIndex(state, id)];
-}
+// // https://stackoverflow.com/a/60610161
+// function getProductItem(state, id) {
+//     return state.items[getProductItemIndex(state, id)];
+// }
 
-function getProductItemIndex(state, {id}) {
-    return state.items.findIndex(item => item.id === id);
-}
+// function getProductItemIndex(state, {id}) {
+//     return state.items.findIndex(item => item.id === id);
+// }

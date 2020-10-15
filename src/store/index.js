@@ -13,19 +13,19 @@ Vue.use(Vuex);
 Vue.use(ElementUI);
 
 export default new Vuex.Store({
-  state: { // data
-  },
+    state: { // data
+    },
 
-  getters: { // computed properties
-  },
+    getters: { // computed properties
+    },
 
-  actions: actions,
+    actions: actions,
 
-  mutations: { // Set and update the state
-  },
+    mutations: { // Set and update the state
+    },
 
-  modules: {
-    cart,
-    products,
-  }
+    modules: {
+        cart,
+        products,
+    }
 });
