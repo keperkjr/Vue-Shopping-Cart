@@ -38,6 +38,7 @@ export default {
         ...mapGetters('cart', {
             products: 'cartProducts',
             total: 'cartTotal',
+            quantity: 'cartQuantity',
         }),
 
         // products() {
@@ -57,7 +58,7 @@ export default {
             let message = {
                 title: 'Success!',
                 type: 'success',
-                message: `You have successfully purchased ${this.products.length} item(s)!`,
+                message: `You have successfully purchased ${this.quantity} item${this.quantity == 1 ? '' : 's'}!`,
             }             
             if (this.products.length < 1) {
                 message = {
@@ -78,7 +79,7 @@ export default {
             }   
             this.processing = false;
             this.$notify(message);  
-        }
+        },
     }
 }
 </script>

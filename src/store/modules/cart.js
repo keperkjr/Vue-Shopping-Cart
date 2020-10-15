@@ -27,6 +27,10 @@ export default {
             return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
         },
 
+        cartQuantity(state, getters) {
+            return state.items.reduce((total, item) => total + item.quantity, 0);
+        },        
+
         getCartItem(state, getters) {
             return (id) => {
                 id = (typeof id !== 'object') ? id : getters.getCartItemIndex(id);
