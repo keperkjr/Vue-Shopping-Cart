@@ -25,6 +25,12 @@ export default {
         cartTotal(state, getters) {
             return getters.cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
         },
+
+        getCartItem(state, getters) {
+            return ({id}) => {
+                return state.items.find(item => item.id == id);
+            } 
+        },        
     },
 
     mutations: {
@@ -35,9 +41,13 @@ export default {
             });
         },
 
-        incrementItemQuantity(state, cartItem) {
+        addItemQuantity(state, cartItem) {
             cartItem.quantity++;
         },  
+
+        removeItemQuantity(state, cartItem) {
+            cartItem.quantity++;
+        },          
         
         setCheckoutStatus(state, status) {
             state.checkoutStatus = status;
@@ -57,36 +67,34 @@ export default {
               context.commit('setCheckoutStatus', message);
               throw new Error(message);
             }
-      
-            const cartItem = context.state.items.find(item => item.id == product.id);
+
+            const cartItem = context.getters.getCartItem(product);
             if (!cartItem) {
               // add item to the cart
               context.commit('pushProductToCart', product.id);
             } else {
               // increment item quantity
-              context.commit('incrementItemQuantity', cartItem);
+              context.commit('addItemQuantity', cartItem);
             }
       
             context.commit('products/decrementProductQuantity', product, {root: true});
         },
 
-        checkout(context, status) {
+        checkout(context) {
+          return new Promise((resolve, reject) => {
             shop.buyProducts(
               context.state.items,
               () => {
                 context.commit('emptyCart');
                 context.commit('setCheckoutStatus', 'success');
-                if (status && status.onSuccess) {
-                  status.onSuccess();
-                }
+                resolve();
               },
               () => {
                 context.commit('setCheckoutStatus', 'failed');
-                if (status && status.onFailure) {
-                  status.onFailure();
-                }
+                reject();
               }
             );
+          });
         }        
     },
 }

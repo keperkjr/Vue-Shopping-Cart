@@ -9,7 +9,7 @@
         </ul>
         <p> Total: {{total | currency}} </p>
 
-        <el-button @click="cartCheckout()"> Checkout</el-button>
+        <el-button @click="cartCheckout()" :loading="processing"> Checkout</el-button>
         <p v-if="checkoutStatus">{{checkoutStatus}}</p>
     </div>
 </template>
@@ -18,6 +18,11 @@
 import {mapState, mapGetters, mapActions} from 'vuex'
 
 export default {
+    data() {
+        return {
+            processing: false,
+        }
+    },
     computed: {
         ...mapState('cart', {
             checkoutStatus: state => state.checkoutStatus,
@@ -39,25 +44,24 @@ export default {
         ...mapActions('cart', {
             checkout: 'checkout',
         }),
-        cartCheckout() {
-            let status = {};
-            status.onSuccess = () => {
-                this.$notify({
-                    title: 'Success!',
-                    type: 'success',
-                    message: `You have successfully purchased ${this.products.length} item(s)!`,
-                    duration: 5000
-                });
-            };
-            status.onFailure = () => {
-                this.$notify({
+        async cartCheckout() {
+            this.processing = true;
+            let message = {
+                title: 'Success!',
+                type: 'success',
+                message: `You have successfully purchased ${this.products.length} item(s)!`,
+            }    
+            try {
+                await this.checkout();
+            } catch (e) {
+                message = {
                     title: 'Error!',
                     type: 'error',
                     message: 'Oh no, something went wrong... Please try again!',
-                    duration: 5000
-                });                 
-            }            
-            this.checkout(status);
+                }                
+            }
+            this.processing = false;
+            this.$notify(message);  
         }
     }
 }

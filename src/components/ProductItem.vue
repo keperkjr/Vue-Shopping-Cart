@@ -7,12 +7,19 @@ s<template>
             </div>
             <div class="info">
                 {{product.title}} - {{product.price | currency }} - {{product.inventory}}
+                <button 
+                :disabled="!productIsInStock(product)"
+                @click="addProductToCart(product)">
+                    Add To Cart
+                </button>                
             </div>            
         </article>
     </section>
 </template>
 
 <script>
+import {mapState, mapGetters, mapActions} from 'vuex';
+
 export default {
     data() {
         return {
@@ -25,7 +32,17 @@ export default {
             required: true,
         },        
     },
+    computed: {
+        ...mapGetters('products', {
+            productIsInStock: 'productIsInStock',
+            availableProducts: 'availableProducts',
+        })        
+    },
     methods: {
+        ...mapActions({
+            addProductToCart: 'cart/addProductToCart',
+        }),
+
         isSoldOut(product) {
             let result = !this.$store.getters['products/productIsInStock'];
             // result = true;
