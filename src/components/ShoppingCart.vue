@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="headerText"> Shopping Cart </div>
+        <div class="headerText"> Cart Summary </div>
         <p v-show="!products.length"><i>Please add some products to cart.</i></p>
         <ul>
             <li v-for="product in products" :key="product.id">

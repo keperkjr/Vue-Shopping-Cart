@@ -2,42 +2,37 @@
 
 <template>
     <div id="app">
-        <div class="headerText"> Shopping Cart Example </div>
-        <!-- <el-button @click="startHacking">Start</el-button> -->
-        <div class="products">
-            <ProductList />
-        </div>
-        <!-- <hr /> -->
-        <div class="cart">
-            <ShoppingCart />
-        </div>
+        <TopNavigation />
+        <transition name="fade" mode="out-in"> 
+            <router-view :key="$route.path" />
+        </transition>
     </div>    
 </template>
 
 <script>
-import ProductList from "@/components/ProductList.vue";
-import ShoppingCart from "@/components/ShoppingCart.vue";
+import TopNavigation from "@/components/TopNavigation"
 
 export default {
     name: "app",
     components: {
-        ProductList,
-        ShoppingCart,
+        TopNavigation,
     },
     methods: {
-        startHacking () {
-            this.$notify({
-                title: 'It works!',
-                type: 'success',
-                message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
-                duration: 5000
-            })
-        }
     }    
 }
 </script>
 
 <style>
+html, body { 
+    margin:0; 
+    padding:0; 
+    background-color: #f1f3f8;
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -54,23 +49,4 @@ export default {
     margin-right: 0;
     font-weight: bold;    
 }
-
-.products, .cart {
-    display: inline-block;
-    vertical-align: top;
-    border: 1px solid lightgrey;
-    padding: 20px;
-    border-radius: 10px;
-    box-sizing: border-box;
-}
-
-.products {
-    width: 70%;
-    margin-right: 16px;
-}
-
-.cart {
-    width: 25%;
-}
-
 </style>
