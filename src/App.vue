@@ -53,7 +53,7 @@ export default {
 }
 
 .products {
-  width: 60%;
+  width: 70%;
   margin-right: 15px;
 }
 

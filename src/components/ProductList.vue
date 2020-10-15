@@ -1,6 +1,6 @@
 <template>
     <div> 
-        <div class="headerText"> Product List </div>
+        <div class="headerText"> Products </div>
         <div v-if="loading">
             <Loading /> 
         </div>
