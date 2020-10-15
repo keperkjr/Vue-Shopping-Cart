@@ -3,6 +3,7 @@
 <template>
   <div id="app">
     <div class="headerText"> Shopping Cart Example </div>
+    <!-- <el-button @click="startHacking">Start</el-button> -->
     <div class="products">
       <ProductList />
     </div>
@@ -22,7 +23,17 @@ export default {
   components: {
     ProductList,
     ShoppingCart,
-  }
+  },
+  methods: {
+    startHacking () {
+      this.$notify({
+        title: 'It works!',
+        type: 'success',
+        message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
+        duration: 5000
+      })
+    }
+  }  
 }
 </script>
 

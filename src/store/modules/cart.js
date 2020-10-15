@@ -70,15 +70,21 @@ export default {
             context.commit('products/decrementProductQuantity', product, {root: true});
         },
 
-        checkout(context) {
+        checkout(context, status) {
             shop.buyProducts(
               context.state.items,
               () => {
                 context.commit('emptyCart');
                 context.commit('setCheckoutStatus', 'success');
+                if (status && status.onSuccess) {
+                  status.onSuccess();
+                }
               },
               () => {
                 context.commit('setCheckoutStatus', 'failed');
+                if (status && status.onFailure) {
+                  status.onFailure();
+                }
               }
             );
         }        
