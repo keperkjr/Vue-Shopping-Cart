@@ -33,7 +33,7 @@ export default {
                 currentValue, 
                 oldValue,
                 id: this.id,
-            })
+            });
         }        
     }
 }

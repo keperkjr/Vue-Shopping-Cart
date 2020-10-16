@@ -39,39 +39,14 @@
                 >
                 <template v-slot="scope">
                     <div>
-                        <!-- <el-button type="success" icon="el-icon-plus" 
-                            @click='addToCart(scope.row.details)' size="mini">
-                        </el-button> -->
-                        <!-- <div class="inline">
-                            <input type="text" autocomplete="off" 
-                                class="el-input__inner" :value="scope.row.quantity"> 
-                        </div> -->
-                        <!-- <el-button type="danger" icon="el-icon-minus" 
-                            @click='removeFromCart(scope.row.details.sku)' size="mini">
-                        </el-button>                                         -->
-
-                        {{scope.row.id}}
-                        {{mapQuantities[scope.row.id]}}
-                        {{quantities[scope.row.id]}}
-                        {{scope.row.quantity}}
-
-                        <!-- <el-input-number :value="scope.row.quantity"
-                            size="mini"
-                            @change="handleItemChange"
-                            :ref="'item_' + scope.row.id"
-                            :min="1" :max="10"></el-input-number>                         -->
-
                         <NumberInput 
                             :value="scope.row.quantity"
                             :key="scope.row.quantity"
                             :id="scope.row.id"
+                            size="mini"
                             :min="0" :max="scope.row.quantity + scope.row.inventory"
                             @value-change="handleItemChange"
                         />
-
-                        <!-- <input type="number" :value="scope.row.quantity"
-                            size="mini" style="width: 50px;"
-                            min="1" max="10" />                        -->
                     </div>
                 </template>
             </el-table-column>   
@@ -109,7 +84,6 @@ export default {
         return {
             processing: false,
             input: '',
-            quantities: {},
         }
     },
     computed: {
@@ -121,17 +95,7 @@ export default {
             products: 'cartProducts',
             total: 'cartTotal',
             quantity: 'cartQuantity',
-        }),
-
-        mapQuantities() {
-            this.products.forEach((product) => {
-                if (product.id in this.quantities) {
-                    return false;
-                }
-                this.quantities[product.id] = product.quantity 
-            });
-            return this.quantities;
-        },        
+        }),      
 
         // products() {
         //     return this.$store.getters.cartProducts;
@@ -182,41 +146,11 @@ export default {
 </script>
 
 <style scoped>
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-} 
-
 .inline {
     display: inline-block;
 }
 .headerText {
     vertical-align: top;
     display: inline;
-}
-
-.el-icon-plus {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-} 
-
-.el-button--mini {
-    height: 22px;
-    width: 15px;
-    text-align: center;
-    font-size: 12px;
-}
-
-.el-input__inner {
-    width: 40px;
-    height: 30px;
-    /* padding: 0 8px; */
-    text-align: center;
-}
-
-.el-input-number--mini {
-    width: 90px;
 }
 </style>
