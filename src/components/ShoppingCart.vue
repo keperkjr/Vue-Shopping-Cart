@@ -65,7 +65,7 @@
                             :value="scope.row.quantity"
                             :key="scope.row.quantity"
                             :id="scope.row.id"
-                            :min="1" :max="10"
+                            :min="0" :max="scope.row.quantity + scope.row.inventory"
                             @value-change="handleItemChange"
                         />
 

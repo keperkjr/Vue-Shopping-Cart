@@ -40,26 +40,11 @@ export default {
 </script>
 
 <style scoped>
-.el-icon-plus {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-} 
-
-.el-button--mini {
-    height: 22px;
-    width: 15px;
-    text-align: center;
-    font-size: 12px;
-}
-
 .el-input__inner {
     width: 40px;
     height: 30px;
-    /* padding: 0 8px; */
     text-align: center;
 }
-
 .el-input-number--mini {
     width: 90px;
 }

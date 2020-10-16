@@ -19,6 +19,7 @@ export default {
                     title: product.title,
                     price: product.price,
                     quantity: cartItem.quantity,
+                    inventory: product.inventory,
                 };
             });
         },
