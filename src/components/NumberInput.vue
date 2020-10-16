@@ -3,6 +3,7 @@
         <el-input-number v-model="dataValue"
             :size="size"
             @change="handleChange"
+            :key="componentKey"
             :min="min" :max="max"></el-input-number>         
     </span>
 </template>
@@ -12,6 +13,7 @@ export default {
     data() {
         return {
             dataValue: this.value,
+            componentKey: 0,
         }
     },
     props: {
@@ -26,14 +28,51 @@ export default {
             type: String,
             default: "mini"
         },
+        onMin: {
+            type: Function,
+            default: null
+        },
+        onMax: {
+            type: Function,
+            default: null
+        }
     },
     methods: {
         handleChange(currentValue, oldValue) {
-            this.$emit('value-change', {
-                currentValue, 
-                oldValue,
-                id: this.id,
-            });
+            try {
+                let payload = {
+                    currentValue, 
+                    oldValue,
+                    id: this.id,
+                };
+                if (this.min != null && this.onMin) {
+                    if (currentValue <= this.min) {                    
+                        let result = this.onMin.call(this, payload);
+                        if (result != null && !result) {
+                            this.dataValue = oldValue;
+                            return; 
+                        }
+                    }
+                }
+                if (this.max != null && this.onMax) {
+                    if (currentValue >= this.max) {                    
+                        let result = this.onMax.call(this, payload);
+                        if (result != null && !result) {
+                            this.dataValue = oldValue;
+                            return; 
+                        }
+                    }
+                }
+                
+                this.$emit('value-change', payload); 
+            } catch(e) {
+                +e;
+            } finally {
+                this.update();
+            }           
+        },
+        update() {
+            this.componentKey++;
         }        
     }
 }

@@ -20,6 +20,7 @@ export default {
                     price: product.price,
                     quantity: cartItem.quantity,
                     inventory: product.inventory,
+                    subtotal: product.price * cartItem.quantity,
                 };
             });
         },
@@ -76,6 +77,33 @@ export default {
     },
 
     actions: {
+        adjustQuantity(context, data) {
+            let product = data.product;
+            let newQuantity = data.quantity;
+
+            context.commit('setCheckoutStatus', null);
+            const index = context.getters.getCartItemIndex(product);            
+            if (index < 0) {
+                let message = `${product.title} does not exist in the cart!`;
+                context.commit('setCheckoutStatus', message);
+                throw new Error(message);
+            }            
+            const cartItem = context.getters.getCartItem(index);
+            let adjustment = newQuantity - cartItem.quantity;
+            if (adjustment > 0) {
+                // Add
+                for (let index = 1; index <= Math.abs(adjustment); ++index) {
+                    let originalProduct = getActualProduct(context, product); 
+                    context.dispatch('addProductToCart', originalProduct);
+                }
+            } else {
+                // Subtract
+                for (let index = 1; index <= Math.abs(adjustment); ++index) {
+                    context.dispatch('removeProductFromCart', product);
+                }                 
+            }          
+        },
+
         removeProductFromCart(context, product) {
             context.commit('setCheckoutStatus', null);
             const index = context.getters.getCartItemIndex(product);            
@@ -92,11 +120,11 @@ export default {
               // subtract item quantity
               context.commit('subtractItemQuantity', cartItem);
             }
-            let originalProduct = context.rootGetters['products/getProductItem'](product);            
+            let originalProduct = getActualProduct(context, product);            
             context.commit('products/addProductQuantity', originalProduct, {root: true});            
         },
 
-        addProductToCart(context, product) {
+        addProductToCart(context, product) {             
             context.commit('setCheckoutStatus', null);
             if (!context.rootGetters['products/productIsInStock'](product)) {
                 // Out of stock
@@ -133,4 +161,8 @@ export default {
           });
         }        
     },
+}
+
+function getActualProduct(context, product) {
+    return context.rootGetters['products/getProductItem'](product);
 }

@@ -38,31 +38,19 @@
                 label="Quantity"
                 >
                 <template v-slot="scope">
-                    <div>
+                    <div class="center">
                         <NumberInput 
                             :value="scope.row.quantity"
                             :key="scope.row.quantity"
                             :id="scope.row.id"
                             size="mini"
                             :min="0" :max="scope.row.quantity + scope.row.inventory"
+                            :onMin="verifyValue"
                             @value-change="handleItemChange"
                         />
                     </div>
                 </template>
-            </el-table-column>   
-
-            <!-- <el-table-column
-                label="Operations">
-                <template v-slot="scope">
-                    <el-button
-                        size="mini"
-                        @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-                    <el-button
-                        size="mini"
-                        type="danger"
-                        @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-                </template>
-            </el-table-column> -->
+            </el-table-column>  
         </el-table>        
 
         <p> Total: {{total | currency}} </p>
@@ -107,7 +95,7 @@ export default {
     methods: {
         ...mapActions('cart', {
             checkout: 'checkout',
-            removeProductFromCart: 'removeProductFromCart',
+            adjustQuantity: 'adjustQuantity',
         }),
         async cartCheckout() {
             this.processing = true;
@@ -139,7 +127,19 @@ export default {
 
         handleItemChange(data) {
             //{currentValue, oldValue, id}
+            let product = this.products.find((product) => product.id === data.id);
+            this.adjustQuantity({
+                product,
+                quantity: data.currentValue,
+            });
+
+            console.log(product.title);
             console.log(data)
+        },
+        verifyValue(data) {
+            let product = this.products.find((product) => product.id === data.id);
+            let result = confirm(`Are you sure you want to remove ${product.title}?`);
+            return result;
         }        
     }
 }

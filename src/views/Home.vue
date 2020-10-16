@@ -64,10 +64,4 @@ export default {
 .cart {
     min-width: 25%;
 }
-
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-}
 </style>

@@ -49,4 +49,10 @@ html, body {
     margin-right: 0;
     font-weight: bold;    
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
 </style>
