@@ -57,7 +57,7 @@ export default {
 }
 
 .products {
-    width: 70%;
+    min-width: 60%;
     margin-right: 16px;
 }
 

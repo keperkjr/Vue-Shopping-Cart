@@ -1,23 +1,21 @@
 s<template>
-    <section class="inline">        
-        <article class="container">
-            <div class="image-container" 
-                :class="{'sold-out': isSoldOut }" >
-                <img class="image" :src="getImageSrc()" />
-            </div>
-            <div class="info">
-                {{product.title}} - {{product.price | currency }} - {{product.inventory}}
-                <el-button 
-                    type="primary" 
-                    size="small"
-                    plain
-                    :disabled="!productIsInStock(product)"
-                    @click="addProductToCart(product)">
-                    Add To Cart
-                </el-button>                
-            </div>            
-        </article>
-    </section>
+    <article class="container">
+        <div class="image-container" 
+            :class="{'sold-out': isSoldOut }" >
+            <img class="image" :src="getImageSrc()" />
+        </div>
+        <div class="info">
+            {{product.title}} - {{product.price | currency }} - {{product.inventory}}
+            <el-button 
+                type="primary" 
+                size="small"
+                plain
+                :disabled="!productIsInStock(product)"
+                @click="addProductToCart(product)">
+                Add To Cart
+            </el-button>                
+        </div>            
+    </article>
 </template>
 
 <script>
@@ -62,32 +60,34 @@ export default {
 </script>
 
 <style scoped>
-.inline {
-    display: inline-block;
-}
-
 .container {
+    display: inline-block;
     /* padding: 10px; */
-    height: 300px;
+    height: 400px;
     width: 250px;
     display: inline-block;    
     vertical-align: top;
-    margin: 8px;
-    border-radius: 10px;
+    /* margin: 8px; */
+    /* border-radius: 10px; */
     border: 1px solid lightgrey;
+    border-left: none;
+}
+
+.container:first-of-type {   
+    border-left: 1px solid lightgrey;
 }
 
 .image-container {
     padding: 10px;
     width: 100%;
-    height: 70%;    
+    height: 75%;    
     display: flex;
     justify-content: center;
     align-items: center;
     /* background-color: #eee; */
     box-sizing: border-box;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    /* border-top-left-radius: 8px;
+    border-top-right-radius: 8px; */
 }
 
 .sold-out {
@@ -97,7 +97,7 @@ export default {
 .image {
     /* width: 90%; */
     /* height: 200px; */
-    height: 95%;
+    height: 75%;
 }
 
 .info {

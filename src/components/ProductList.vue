@@ -1,7 +1,11 @@
 <template>
-    <div> 
-        <div class="headerText"> Products </div>
-        <div v-if="loading">
+    <section> 
+        <div class="headerContainer">
+            <div class="headerText"> 
+                Products 
+            </div>            
+        </div>
+        <div v-if="isLoading">
             <Loading /> 
         </div>
         <!-- <ul v-else>
@@ -22,7 +26,7 @@
                 :product="product"
             ></ProductItem>
         </div>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -37,7 +41,7 @@ export default {
     },
     data() {
         return {
-            loading: false,
+            isLoading: false,
         }
     },
 
@@ -73,18 +77,22 @@ export default {
     },
 
     created() {
-        this.loading = true;
+        this.isLoading = true;
         this.fetchProducts()
-            .then(() => this.loading = false);        
+            .then(() => this.isLoading = false);        
         // this.$store.dispatch('fetchProducts')
-        //     .then(() => this.loading = false);
+        //     .then(() => this.isLoading = false);
     }
 }
 </script>
 
 <style scoped>
+.headerContainer {
+    margin-bottom: 15px;
+}
+
 .headerText {
     vertical-align: top;
-    display: inline;
+    display: inline;    
 }
 </style>
