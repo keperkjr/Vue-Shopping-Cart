@@ -65,7 +65,7 @@ export default {
 }
 
 #nav a {
-    color: #2c3e50;
+    color: orange;
     text-decoration: none;
     font-weight: bold;
 }
@@ -95,12 +95,5 @@ export default {
     color: #e5e5e5;
     font-weight: bold;
     margin-left: 15px;
-}
-
-.logo:active, .logo:focus, .logo:visited {
-    outline: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    text-decoration:none
 }
 </style>

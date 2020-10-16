@@ -62,7 +62,7 @@ export default {
 }
 
 .cart {
-    width: 25%;
+    min-width: 25%;
 }
 
 .center {
