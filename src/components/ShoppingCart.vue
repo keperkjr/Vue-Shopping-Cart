@@ -45,7 +45,7 @@
                             :id="scope.row.id"
                             size="mini"
                             :min="0" :max="scope.row.quantity + scope.row.inventory"
-                            :onMin="verifyValue"
+                            :onMin="verifyRemoval"
                             @value-change="handleItemChange"
                         />
                     </div>
@@ -71,7 +71,6 @@ export default {
     data() {
         return {
             processing: false,
-            input: '',
         }
     },
     computed: {
@@ -127,16 +126,20 @@ export default {
 
         handleItemChange(data) {
             //{currentValue, oldValue, id}
+            if (data.currentValue <= 1) {                    
+                let result = this.verifyRemoval(data);
+                if (!result) {
+                    data.reject = true;
+                    return; 
+                }
+            }          
             let product = this.products.find((product) => product.id === data.id);
             this.adjustQuantity({
                 product,
                 quantity: data.currentValue,
             });
-
-            console.log(product.title);
-            console.log(data)
         },
-        verifyValue(data) {
+        verifyRemoval(data) {
             let product = this.products.find((product) => product.id === data.id);
             let result = confirm(`Are you sure you want to remove ${product.title}?`);
             return result;

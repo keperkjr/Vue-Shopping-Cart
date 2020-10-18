@@ -2,7 +2,7 @@ s<template>
     <article class="container">
         <div class="image-container" 
             :class="{'sold-out': isSoldOut }" >
-            <img class="image" :src="getImageSrc()" />
+            <img class="grow image" :src="getImageSrc()" />
         </div>
         <div class="info">
             {{product.title}} - {{product.price | currency }} - {{product.inventory}}
@@ -104,5 +104,15 @@ export default {
     font-weight: bold;
     padding-top: 10px;
     border-top: 1px solid lightgrey;
+}
+
+.grow:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.grow {
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 </style>

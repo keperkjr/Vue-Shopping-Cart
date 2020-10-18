@@ -44,27 +44,32 @@ export default {
                     currentValue, 
                     oldValue,
                     id: this.id,
+                    reject: false,
                 };
-                if (this.min != null && this.onMin) {
-                    if (currentValue <= this.min) {                    
-                        let result = this.onMin.call(this, payload);
-                        if (result != null && !result) {
-                            this.dataValue = oldValue;
-                            return; 
-                        }
-                    }
-                }
-                if (this.max != null && this.onMax) {
-                    if (currentValue >= this.max) {                    
-                        let result = this.onMax.call(this, payload);
-                        if (result != null && !result) {
-                            this.dataValue = oldValue;
-                            return; 
-                        }
-                    }
-                }
                 
-                this.$emit('value-change', payload); 
+                // if (this.min != null && this.onMin) {
+                //     if (currentValue <= this.min) {                    
+                //         let result = this.onMin.call(this, payload);
+                //         if (result != null && !result) {
+                //             this.dataValue = oldValue;
+                //             return; 
+                //         }
+                //     }
+                // }
+                // if (this.max != null && this.onMax) {
+                //     if (currentValue >= this.max) {                    
+                //         let result = this.onMax.call(this, payload);
+                //         if (result != null && !result) {
+                //             this.dataValue = oldValue;
+                //             return; 
+                //         }
+                //     }
+                // }
+                
+                this.$emit('value-change', payload);
+                if (payload.reject) {
+                    this.dataValue = oldValue;
+                } 
             } catch(e) {
                 +e;
             } finally {

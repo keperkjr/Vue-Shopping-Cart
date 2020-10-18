@@ -55,7 +55,7 @@ export default {
             });
         },
 
-        removeProductFromCart(state, index) {
+        removeItemFromCart(state, index) {
             state.items.splice(index, 1);
         },          
 
@@ -115,7 +115,7 @@ export default {
             const cartItem = context.getters.getCartItem(index);
             if (cartItem.quantity <= 1) {
                 // remove the item from the the cart
-                context.commit('removeProductFromCart', index);
+                context.commit('removeItemFromCart', index);
             } else {
               // subtract item quantity
               context.commit('subtractItemQuantity', cartItem);
