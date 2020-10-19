@@ -126,12 +126,14 @@ export default {
 
         async handleItemChange(data) {
             //{currentValue, oldValue, id}
+            let showMessage = false;
             if (data.currentValue <= data.min) {         
                 let result = await this.verifyRemoval(data);
                 if (!result) {
                     data.setValue(data.oldValue);
                     return; 
                 }
+                showMessage = true;
             }          
             let product = this.products.find((product) => product.id === data.id);
             this.adjustQuantity({
@@ -139,10 +141,12 @@ export default {
                 quantity: data.currentValue,
             });
 
-            this.$message({
-                type: 'success',
-                message: `${product.title} removed!`
-            });            
+            if (showMessage) {
+                this.$message({
+                    type: 'success',
+                    message: `${product.title} removed from the cart!`
+                }); 
+            }           
         },
 
         async verifyRemoval(data) {
