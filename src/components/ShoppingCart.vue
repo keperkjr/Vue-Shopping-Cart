@@ -128,8 +128,8 @@ export default {
             //{currentValue, oldValue, id}
             let showMessage = false;
             if (data.currentValue <= data.min) {         
-                let result = await this.verifyRemoval(data);
-                if (!result) {
+                let cancelRemove = await this.verifyRemoval(data);
+                if (cancelRemove) {
                     data.setValue(data.oldValue);
                     return; 
                 }
@@ -152,7 +152,7 @@ export default {
         async verifyRemoval(data) {
             let product = this.products.find((product) => product.id === data.id);
             // let result = confirm(`Are you sure you want to remove ${product.title}?`);
-            let result = false;
+            let cancelRemove = true;
             try {
                 await this.$confirm(`Are you sure you want to remove ${product.title}?`, 'Remove Item?', {
                     confirmButtonText: 'Cancel',
@@ -165,9 +165,9 @@ export default {
                     showClose: false,
                 });
             } catch (e) {
-                result = true;
+                cancelRemove = false;
             }
-            return result;
+            return cancelRemove;
         }        
     }
 }
