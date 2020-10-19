@@ -24,6 +24,25 @@
                 <router-link to="/user">Dashboard</router-link>
             </li> -->
         </ul>
+        <div class="nav-right">      
+            <ul class="nav-links">
+                <li class="links">
+                    <router-link to="/login">Login</router-link>
+                </li>    
+                <li class="links">
+                    <router-link to="/register">Register</router-link>
+                </li>   
+                <li>
+                    <router-link to="/checkout">
+                        <el-button type="warning" 
+                            icon="el-icon-shopping-cart-full"
+                        >
+                            Checkout
+                        </el-button>
+                    </router-link>
+                </li>
+            </ul> 
+        </div>        
     </nav>
 </template>
 
@@ -52,6 +71,10 @@ export default {
 
 
 <style scoped>
+.inline {
+    display: inline-block;
+}
+
 #nav {
     display: flex;
     align-items: center;
@@ -62,10 +85,12 @@ export default {
     z-index: 1;
     padding: 8px 0;
     margin-bottom: 15px;
+    height: 67px;
 }
 
 #nav a {
-    color: orange;
+    color: #42b983;
+    color: #4CAF50;
     text-decoration: none;
     font-weight: bold;
 }
@@ -73,7 +98,10 @@ export default {
 #nav a.router-link-exact-active,
 #nav a.router-link-active,
 #nav a.vue-school-active-class {
-    color: #42b983;
+    color: #ea7201;
+    /* color: white; */
+    /* font-style: italic; */
+    font-size: 20px;
 }
 
 .nav-links {
@@ -95,5 +123,17 @@ export default {
     color: #e5e5e5;
     font-weight: bold;
     margin-left: 15px;
+}
+
+.nav-right {
+    position: absolute;
+    right: 0;   
+    margin-right: 45px;
+}
+
+.el-button--warning {
+    background-color: #ffc107;
+    font-weight: bold;
+    color: whitesomke;
 }
 </style>

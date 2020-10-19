@@ -38,13 +38,15 @@ export default {
         }
     },
     methods: {
-        handleChange(currentValue, oldValue) {
+        async handleChange(currentValue, oldValue) {
             try {
                 let payload = {
                     currentValue, 
                     oldValue,
+                    min: this.min,
+                    max: this.max,
                     id: this.id,
-                    reject: false,
+                    setValue: this.setValue,
                 };
                 
                 // if (this.min != null && this.onMin) {
@@ -65,16 +67,19 @@ export default {
                 //         }
                 //     }
                 // }
-                
                 this.$emit('value-change', payload);
+
                 if (payload.reject) {
-                    this.dataValue = oldValue;
-                } 
+                    this.setValue(oldValue);
+                }
             } catch(e) {
                 +e;
             } finally {
                 this.update();
             }           
+        },
+        setValue(value) {
+            this.dataValue = value;
         },
         update() {
             this.componentKey++;

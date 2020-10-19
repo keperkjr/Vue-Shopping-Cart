@@ -1,21 +1,36 @@
-s<template>
-    <article class="container">
-        <div class="image-container" 
+<template>
+    <section class="container">
+        <article class="image-container" 
             :class="{'sold-out': isSoldOut }" >
             <img class="grow image" :src="getImageSrc()" />
-        </div>
-        <div class="info">
-            {{product.title}} - {{product.price | currency }} - {{product.inventory}}
-            <el-button 
-                type="primary" 
-                size="small"
-                plain
-                :disabled="!productIsInStock(product)"
-                @click="addProductToCart(product)">
-                Add To Cart
-            </el-button>                
-        </div>            
-    </article>
+        </article>
+        <article class="info">
+            <!-- {{product.title}} - {{product.price | currency }} - {{product.inventory}} -->
+            <div class="title">
+                {{product.title}}
+            </div>
+            <div class="inventory">
+                <span v-if="product.inventory > 0">Only</span> {{product.inventory}} left in stock!
+            </div>
+
+            <div class="bottom">
+                <div class="inline price">
+                    {{product.price | currency}}
+                </div>
+                <div class="inline action">
+                    <el-button 
+                        type="primary" 
+                        size="small"
+                        icon="el-icon-shopping-cart-full"
+                        plain
+                        :disabled="!productIsInStock(product)"
+                        @click="addProductToCart(product)">
+                        Add To Cart
+                    </el-button>                     
+                </div>
+            </div>               
+        </article>            
+    </section>
 </template>
 
 <script>
@@ -63,7 +78,7 @@ export default {
 .container {
     display: inline-block;
     /* padding: 10px; */
-    height: 400px;
+    height: 420px;
     width: 250px;
     display: inline-block;    
     vertical-align: top;
@@ -80,7 +95,8 @@ export default {
 .image-container {
     padding: 10px;
     width: 100%;
-    height: 75%;    
+    /* height: 75%;     */
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,9 +117,12 @@ export default {
 }
 
 .info {
-    font-weight: bold;
-    padding-top: 10px;
-    border-top: 1px solid lightgrey;
+    padding: 10px;
+    border-top: 1px solid #eee;
+    text-align: left;
+    font-family: BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,
+        Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,
+        Noto Color Emoji;
 }
 
 .grow:hover {
@@ -114,5 +133,34 @@ export default {
 .grow {
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+}
+
+.title {
+    font-size: 20px;    
+    color: black;
+    font-weight: bold;
+}
+
+.inventory {
+    color: #d17581;
+    font-size: 14px;
+    margin: 3px 0;
+}
+
+.price {
+    font-size: 18px;
+    color: #3eaf7c;
+    font-weight: bold;
+}
+
+.bottom {
+    margin-top: 18px;
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;    
+}
+
+.action {
+    /* float: right; */
 }
 </style>

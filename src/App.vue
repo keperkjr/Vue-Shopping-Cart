@@ -55,4 +55,8 @@ html, body {
     justify-content: center;
     align-items: center;    
 }
+
+.inline {
+    display: inline;
+}
 </style>

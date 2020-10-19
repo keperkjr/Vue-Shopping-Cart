@@ -56,7 +56,7 @@
         <p> Total: {{total | currency}} </p>
 
         <el-button type="primary" @click="cartCheckout()" :loading="processing"> Checkout</el-button>
-        <p v-if="checkoutStatus">{{checkoutStatus}}</p>
+        <!-- <p v-if="checkoutStatus">{{checkoutStatus}}</p> -->
     </div>
 </template>
 
@@ -124,12 +124,12 @@ export default {
             this.$notify(message);  
         },
 
-        handleItemChange(data) {
+        async handleItemChange(data) {
             //{currentValue, oldValue, id}
-            if (data.currentValue <= 1) {                    
-                let result = this.verifyRemoval(data);
+            if (data.currentValue <= data.min) {         
+                let result = await this.verifyRemoval(data);
                 if (!result) {
-                    data.reject = true;
+                    data.setValue(data.oldValue);
                     return; 
                 }
             }          
@@ -138,10 +138,29 @@ export default {
                 product,
                 quantity: data.currentValue,
             });
+
+            this.$message({
+                type: 'success',
+                message: `${product.title} removed!`
+            });            
         },
-        verifyRemoval(data) {
+
+        async verifyRemoval(data) {
             let product = this.products.find((product) => product.id === data.id);
-            let result = confirm(`Are you sure you want to remove ${product.title}?`);
+            // let result = confirm(`Are you sure you want to remove ${product.title}?`);
+            let result = true;
+            try {
+                await this.$confirm(`Are you sure you want to remove ${product.title}?`, 'Remove Item?', {
+                    confirmButtonText: `Remove ${product.title}`,
+                    cancelButtonText: 'Cancel',
+                    type: 'warning',
+                    closeOnClickModal: false,
+                    closeOnPressEscape: false,
+                    confirmButtonClass: 'el-button--danger'
+                });
+            } catch (e) {
+                result = false;
+            }
             return result;
         }        
     }
