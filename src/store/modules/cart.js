@@ -34,14 +34,15 @@ export default {
         },        
 
         getCartItem(state, getters) {
-            return (id) => {
-                id = (typeof id !== 'object') ? id : getters.getCartItemIndex(id);
-                return state.items[id];
+            return (index) => {
+                index = (typeof index !== 'object') ? index : getters.getCartItemIndex(index);
+                return state.items[index];
             } 
         },
 
         getCartItemIndex(state, getters) {
             return ({id}) => {
+                debugger;
                 return state.items.findIndex(item => item.id === id);
             } 
         },                 

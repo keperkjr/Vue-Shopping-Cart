@@ -96,6 +96,11 @@ export default {
             checkout: 'checkout',
             adjustQuantity: 'adjustQuantity',
         }),
+
+        getItem(id) {
+            return this.products.find((product) => product.id === id);
+        },
+
         async cartCheckout() {
             this.processing = true;
             let message = {
@@ -135,7 +140,7 @@ export default {
                 }
                 showMessage = true;
             }          
-            let product = this.products.find((product) => product.id === data.id);
+            let product = this.getItem(data.id);
             this.adjustQuantity({
                 product,
                 quantity: data.currentValue,
@@ -150,7 +155,7 @@ export default {
         },
 
         async verifyRemoval(data) {
-            let product = this.products.find((product) => product.id === data.id);
+            let product = this.getItem(data.id);
             // let result = confirm(`Are you sure you want to remove ${product.title}?`);
             let cancelRemove = true;
             try {

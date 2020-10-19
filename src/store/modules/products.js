@@ -18,9 +18,9 @@ export default {
             }
         },
         getProductItem(state, getters) {
-            return (id) => {
-                id = (typeof id !== 'object') ? id : getters.getProductItemIndex(id);
-                return state.items[id];
+            return (index) => {
+                index = (typeof index !== 'object') ? index : getters.getProductItemIndex(index);
+                return state.items[index];
             } 
         }, 
     
