@@ -85,12 +85,18 @@ export default {
 </script>
 
 <style scoped>
+.el-input-number--mini .el-input-number__decrease, 
+.el-input-number--mini .el-input-number__increase {
+    width: 24px;
+    font-size: 12px;
+}
+
 .el-input__inner {
-    width: 40px;
+    width: 30px;
     height: 30px;
     text-align: center;
 }
 .el-input-number--mini {
-    width: 90px;
+    width: 80px;
 }
 </style>

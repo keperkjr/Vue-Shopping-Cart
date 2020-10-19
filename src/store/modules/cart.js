@@ -42,7 +42,6 @@ export default {
 
         getCartItemIndex(state, getters) {
             return ({id}) => {
-                debugger;
                 return state.items.findIndex(item => item.id === id);
             } 
         },                 

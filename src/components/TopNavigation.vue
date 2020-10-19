@@ -84,7 +84,7 @@ export default {
     border-bottom: 1px solid grey;
     z-index: 1;
     padding: 8px 0;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
     height: 67px;
 }
 

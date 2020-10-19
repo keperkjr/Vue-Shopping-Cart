@@ -57,8 +57,8 @@ export default {
 }
 
 .products {
-    min-width: 60%;
-    margin-right: 16px;
+    min-width: 72%;
+    margin-right: 10px;
 }
 
 .cart {

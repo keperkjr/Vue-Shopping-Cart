@@ -3,19 +3,28 @@
 <template>
     <div id="app">
         <TopNavigation />
-        <transition name="fade" mode="out-in"> 
-            <router-view :key="$route.path" />
-        </transition>
+        <div class="container">
+            <div class="sideNav">
+                <SideNavigation />
+            </div>
+            <div class="content">        
+                <transition name="fade" mode="out-in"> 
+                    <router-view :key="$route.path" />
+                </transition>
+            </div>
+        </div>
     </div>    
 </template>
 
 <script>
 import TopNavigation from "@/components/TopNavigation"
+import SideNavigation from "@/components/SideNavigation"
 
 export default {
     name: "app",
     components: {
         TopNavigation,
+        SideNavigation,
     },
     methods: {
     }    
@@ -23,6 +32,24 @@ export default {
 </script>
 
 <style>
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content {
+    display: inline-block;
+    margin-top: 15px;
+    min-width: 81%;
+}
+
+.sideNav {
+    width: 245px;
+    display: inline-block;
+    vertical-align: top;
+}
+
 html, body { 
     margin:0; 
     padding:0; 
