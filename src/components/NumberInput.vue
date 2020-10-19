@@ -38,7 +38,7 @@ export default {
         }
     },
     methods: {
-        async handleChange(currentValue, oldValue) {
+        handleChange(currentValue, oldValue) {
             try {
                 let payload = {
                     currentValue, 
@@ -68,10 +68,6 @@ export default {
                 //     }
                 // }
                 this.$emit('value-change', payload);
-
-                if (payload.reject) {
-                    this.setValue(oldValue);
-                }
             } catch(e) {
                 +e;
             } finally {

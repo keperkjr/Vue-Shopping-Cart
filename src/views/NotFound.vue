@@ -1,6 +1,6 @@
 <template>
     <div class="margin">
-        <h1>Not Found</h1>
+        <h1>Page Not Found: {{$route.path}}</h1>
         <p>Oops.... We couldn't find that page. Try going
             <router-link to="/">
                 home

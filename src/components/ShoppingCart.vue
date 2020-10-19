@@ -152,18 +152,20 @@ export default {
         async verifyRemoval(data) {
             let product = this.products.find((product) => product.id === data.id);
             // let result = confirm(`Are you sure you want to remove ${product.title}?`);
-            let result = true;
+            let result = false;
             try {
                 await this.$confirm(`Are you sure you want to remove ${product.title}?`, 'Remove Item?', {
-                    confirmButtonText: `Remove ${product.title}`,
-                    cancelButtonText: 'Cancel',
+                    confirmButtonText: 'Cancel',
+                    cancelButtonText: `Remove ${product.title}`, 
                     type: 'warning',
                     closeOnClickModal: false,
                     closeOnPressEscape: false,
-                    confirmButtonClass: 'el-button--danger'
+                    confirmButtonClass: 'el-button',
+                    cancelButtonClass: 'el-button--danger',
+                    showClose: false,
                 });
             } catch (e) {
-                result = false;
+                result = true;
             }
             return result;
         }        

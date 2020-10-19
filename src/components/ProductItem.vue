@@ -163,4 +163,10 @@ export default {
 .action {
     /* float: right; */
 }
+
+.el-button--primary.is-plain {
+    /* background-color: #e5eaef; */
+    color: #398ee5;
+    font-weight: bold;
+}
 </style>
