@@ -32,28 +32,10 @@ export default {
 </script>
 
 <style>
-
-.container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.content {
-    display: inline-block;
-    margin-top: 15px;
-    min-width: 81%;
-}
-
-.sideNav {
-    width: 245px;
-    display: inline-block;
-    vertical-align: top;
-}
-
 html, body { 
     margin:0; 
     padding:0; 
-    background-color: #f1f3f8;
+    background-color: #f5f6fa;
 }
 
 * { 
@@ -69,12 +51,12 @@ html, body {
 }
 
 .headerText {
-    font-size: 2em;
     margin-top: 0.67em;
     margin-bottom: 0.67em;
     margin-left: 0;
     margin-right: 0;
-    font-weight: bold;    
+    font-weight: bold; 
+    font-size: 25px;   
 }
 
 .center {
@@ -85,5 +67,22 @@ html, body {
 
 .inline {
     display: inline;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content {
+    display: inline-block;
+    margin-top: 25px;
+    min-width: 81%;
+}
+
+.sideNav {
+    width: 245px;
+    display: inline-block;
+    vertical-align: top;
 }
 </style>

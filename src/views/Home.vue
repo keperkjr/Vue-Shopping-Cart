@@ -37,20 +37,12 @@ export default {
 </script>
 
 <style scoped>
-.headerText {
-    font-size: 2em;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-    margin-left: 0;
-    margin-right: 0;
-    font-weight: bold;    
-}
-
 .products, .cart {
     display: inline-block;
     vertical-align: top;
     border: 1px solid lightgrey;
     padding: 20px;
+    padding-top: 12px;
     border-radius: 8px;
     box-sizing: border-box;
     background-color: white;
