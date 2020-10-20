@@ -17,7 +17,7 @@
             <span v-for="category in categories()" :key="category" >
                 <router-link :to="getCategoryPath(category)">
                     <div class="category grow"
-                        :class="[$route.path.indexOf(category.toLowerCase()) > 0 ? 'active' : '']"
+                        :class="[$route.path === getCategoryPath(category) ? 'active' : '']"
                     >
                         {{category}}
                     </div>
@@ -80,7 +80,7 @@ export default {
 }
 
 .categories {
-    margin-top: 20px;
+    margin-top: 28px;
     margin-right: 10px;
     text-align: left;
 }

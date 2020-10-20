@@ -77,6 +77,9 @@ export default {
     },
 
     created() {
+        if (this.products.length > 0) {
+            return;
+        }        
         this.isLoading = true;
         this.fetchProducts()
             .then(() => this.isLoading = false);        
