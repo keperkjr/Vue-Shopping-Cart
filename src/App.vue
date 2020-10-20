@@ -26,8 +26,19 @@ export default {
         TopNavigation,
         SideNavigation,
     },
-    methods: {
-    }    
+    // methods: {
+    //     ...mapActions({
+    //         fetchProducts: 'products/fetchProducts',
+    //     }),        
+    // },
+
+    // created() {
+    //     this.isLoading = true;
+    //     this.fetchProducts()
+    //         .then(() => this.isLoading = false);        
+    //     // this.$store.dispatch('fetchProducts')
+    //     //     .then(() => this.isLoading = false);
+    // }      
 }
 </script>
 
@@ -77,11 +88,11 @@ html, body {
 .content {
     display: inline-block;
     margin-top: 25px;
-    min-width: 81%;
+    min-width: 85%;
 }
 
 .sideNav {
-    width: 245px;
+    width: 210px;
     display: inline-block;
     vertical-align: top;
 }
