@@ -7,22 +7,22 @@
         </div>
 
         <div class="categories">
-            <ul>
-                <li>
-                    <div class="category">
-                        <router-link to="/">
-                            Home
-                        </router-link>
-                    </div>                    
-                </li>
-                <li v-for="category in categories()" :key="category">
-                    <div class="category">
-                        <router-link :to="getCategoryPath(category)">
-                            {{category}}
-                        </router-link>
+            <router-link to="/">
+                <div class="category grow"
+                    :class="[$route.path === '/' ? 'active' : '']"
+                >
+                    Home
+                </div> 
+            </router-link>
+            <span v-for="category in categories()" :key="category" >
+                <router-link :to="getCategoryPath(category)">
+                    <div class="category grow"
+                        :class="[$route.path.indexOf(category.toLowerCase()) > 0 ? 'active' : '']"
+                    >
+                        {{category}}
                     </div>
-                </li>
-            </ul>
+                </router-link>
+            </span>
         </div>
     </section>
 </template>
@@ -47,8 +47,8 @@ export default {
     },
     
     methods: {
-        ...mapActions({
-            fetchProducts: 'products/fetchProducts',
+        ...mapActions('products', {
+            fetchProducts: 'fetchProducts',
         }), 
 
         getCategoryPath(category) {
@@ -67,7 +67,7 @@ export default {
     display: inline-block;
     vertical-align: top;
     border: 1px solid lightgrey;
-    padding: 20px 3px;
+    padding: 15px 3px;
     background-color: white;
     width: 100%;
     height: 100vh;
@@ -80,15 +80,34 @@ export default {
 }
 
 .categories {
-    margin-top: 15px;
+    margin-top: 20px;
+    margin-right: 10px;
     text-align: left;
 }
 
 .category {
-    margin: 5px;    
+    margin: 5px;
+    padding: 12px;
+    border-bottom: 1px solid lightgray;
+    transition: all 400ms;
+    border-left: 3px solid #ea7201;
 }
 
-ul {
-    list-style-type: none;
+.category:hover {
+    /* border-bottom: 1px solid orange; */
+}
+
+.categories a {
+    color: grey;
+    text-decoration: none;
+}
+
+.active {
+    /* transform: scale(1.1); */
+    border-left: 3px solid #4CAF50;
+    /* border-bottom: 1px solid orange; */
+    background-color: #eff0f1;
+    color: black;
+    font-weight: bold;
 }
 </style>

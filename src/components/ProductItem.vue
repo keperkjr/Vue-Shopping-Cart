@@ -125,16 +125,6 @@ export default {
         Noto Color Emoji;
 }
 
-.grow:hover {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-}
-
-.grow {
-    -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-}
-
 .title {
     font-size: 20px;    
     color: black;

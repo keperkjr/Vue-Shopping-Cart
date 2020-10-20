@@ -46,6 +46,7 @@ export default {
 html, body { 
     margin:0; 
     padding:0; 
+    height: 100%;
     background-color: #f5f6fa;
 }
 
@@ -95,5 +96,14 @@ html, body {
     width: 210px;
     display: inline-block;
     vertical-align: top;
+}
+
+
+.grow:hover {
+    transform: scale(1.1);
+}
+
+.grow {
+    transition: all .2s ease-in-out;
 }
 </style>
