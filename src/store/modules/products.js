@@ -1,4 +1,5 @@
 import shop from "@/api/shop"
+import * as Utils from "@/js/utils"
 
 export default {
     namespaced: true,
@@ -30,15 +31,9 @@ export default {
         },   
         getCategories(state, getters) {
             return () => {
-                let allCategories = [];
-                state.items.forEach((item) => {
-                    item.categories.forEach(category => {
-                        allCategories.push(category);
-                    })
-                });
-                return unique(allCategories).sort();
+                return Utils.arrayUnique(state.items, item => item.categories).sort();
             }  
-        }             
+        }
     },
 
     mutations: {
@@ -77,11 +72,3 @@ export default {
 // function getProductItemIndex(state, {id}) {
 //     return state.items.findIndex(item => item.id === id);
 // }
-
-function unique(array) {
-    return array.filter(onlyUnique);
-}
-
-function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-}

@@ -8,7 +8,7 @@
 
         <div class="categories">
             <router-link to="/">
-                <div class="category grow"
+                <div class="category"
                     :class="[$route.path === '/' ? 'active' : '']"
                 >
                     Home
@@ -16,7 +16,7 @@
             </router-link>
             <span v-for="category in categories()" :key="category" >
                 <router-link :to="getCategoryPath(category)">
-                    <div class="category grow"
+                    <div class="category"
                         :class="[$route.path === getCategoryPath(category) ? 'active' : '']"
                     >
                         {{category}}
@@ -89,12 +89,13 @@ export default {
     margin: 5px;
     padding: 12px;
     border-bottom: 1px solid lightgray;
-    transition: all 400ms;
+    transition: all 600ms;
     border-left: 3px solid #ea7201;
 }
 
 .category:hover {
-    /* border-bottom: 1px solid orange; */
+    border-bottom: 1px solid orange;
+    font-weight: bold;
 }
 
 .categories a {
