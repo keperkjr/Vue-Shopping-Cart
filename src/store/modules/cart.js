@@ -13,6 +13,7 @@ export default {
     getters: {
         cartProducts(state, getters, rootState, rootGetters) {
             return state.items.map(cartItem => {
+                // const product = rootState.products.items.find(product => product.id == cartItem.id);
                 const product = getActualProduct(rootGetters, cartItem);
                 return {
                     id: product.id,
