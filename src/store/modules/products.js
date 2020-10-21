@@ -55,7 +55,7 @@ export default {
 
     actions: {
         fetchProducts(context, data) {
-            const category = data.category || '';
+            const category = (data.category || '').toLowerCase();
             let delay = data.delay || 1000;
 
             return new Promise((resolve, reject) => {
@@ -64,7 +64,7 @@ export default {
                     let allItems = products;
                     if (!Utils.isEmpty(category)) {
                         products = products.filter(product => {
-                            let item = product.categories.find(item => item.toLowerCase() === category.toLowerCase());
+                            let item = product.categories.find(item => item.toLowerCase() === category);
                             return item != null;
                         });
                     }

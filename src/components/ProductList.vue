@@ -2,7 +2,7 @@
     <section> 
         <div class="headerContainer">
             <div class="headerText"> 
-                Products 
+                {{categoryName}} 
             </div>            
         </div>
         <div v-if="isLoading">
@@ -53,7 +53,14 @@ export default {
         ...mapGetters('products', {
             productIsInStock: 'productIsInStock',
             availableProducts: 'availableProducts',
-        })
+        }),
+
+        categoryName() {
+            let name = this.category && this.category.length > 0 
+                ? this.category : 'Products';
+            return name;
+        }
+                
         // products() {
         //     // return this.$store.getters.availableProducts;
         //     return this.$store.state.products;
@@ -73,7 +80,6 @@ export default {
         // addProductToCart(product) {
         //     this.$store.dispatch('addProductToCart', product);
         // }
-
     },
 
     props: {
@@ -102,6 +108,7 @@ export default {
 
 .headerText {
     vertical-align: top;
-    display: inline;    
+    display: inline;  
+    text-transform: capitalize;  
 }
 </style>

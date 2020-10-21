@@ -8,16 +8,16 @@
 
         <div class="categories">
             <router-link to="/">
-                <div class="category"
-                    :class="[$route.path === '/' ? 'active' : '']"
+                <!-- :class="[$route.path === '/' ? 'active' : '']" -->
+                <div class="category"                    
                 >
                     Home
                 </div> 
             </router-link>
             <span v-for="category in categories" :key="category" >
                 <router-link :to="getNavigationPath(category)">
-                    <div class="category"
-                        :class="[$route.path === getCategoryPath(category) ? 'active' : '']"
+                    <!-- :class="[$route.path === getCategoryPath(category) ? 'active' : '']" -->
+                    <div class="category"                        
                     >
                         {{category}}
                     </div>
@@ -80,7 +80,7 @@ export default {
     display: inline-block;
     vertical-align: top;
     border: 1px solid lightgrey;
-    padding: 15px 3px;
+    padding: 15px 0;
     background-color: white;
     width: 100%;
     height: 100vh;
@@ -94,12 +94,12 @@ export default {
 
 .categories {
     margin-top: 28px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     text-align: left;
 }
 
 .category {
-    margin: 5px;
+    /* margin: 5px; */
     padding: 12px;
     border-bottom: 1px solid lightgray;
     transition: background 400ms;
@@ -119,6 +119,19 @@ export default {
 }
 
 .active {
+    /* transform: scale(1.1); */
+    border-left: 3px solid #4CAF50;
+    /* border-bottom: 1px solid orange; */
+    background-color: #eff0f1;
+    color: black;
+    font-weight: bold;
+
+    background-color: var(--sideNavActiveBackground) !important;
+    color: var(--sideNavActiveColor);
+    border-left: 3px solid var(--sideNavActiveColor);
+}
+
+.router-link-exact-active > .category {
     /* transform: scale(1.1); */
     border-left: 3px solid #4CAF50;
     /* border-bottom: 1px solid orange; */
