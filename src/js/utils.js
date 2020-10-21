@@ -26,3 +26,11 @@ export function arrayUnique(array, selector = null) {
         .filter((value, index, self) => self.indexOf(value) === index);
     return value;
 }
+
+export let isNull = (item) => {
+    return undefined === item || null === item;
+}
+
+export let isEmpty = (str) => {
+    return isNull(str) || String(str).trim().length < 1;
+}

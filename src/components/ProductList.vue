@@ -76,13 +76,18 @@ export default {
 
     },
 
-    created() {
-        if (this.products.length > 0) {
-            return;
-        }        
+    props: {
+        category: {
+            type: String,
+        },      
+    },    
+
+    created() {    
         this.isLoading = true;
-        this.fetchProducts()
-            .then(() => this.isLoading = false);        
+        this.fetchProducts({
+            category: this.category,
+        })
+        .then(() => this.isLoading = false);        
         // this.$store.dispatch('fetchProducts')
         //     .then(() => this.isLoading = false);
     }

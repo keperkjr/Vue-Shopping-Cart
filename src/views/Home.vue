@@ -1,27 +1,31 @@
 <!-- https://vueschool.io/lessons/create-a-new-project-with-vue-cli -->
 
 <template>
-    <div id="app">
+    <div class="home">
         <!-- <el-button @click="startHacking">Start</el-button> -->
-        <div class="products">
+        <!-- <div class="products">
             <ProductList />
-        </div>
+        </div> -->
         <!-- <hr /> -->
-        <div class="cart">
+        <!-- <div class="cart">
             <ShoppingCart />
-        </div>
+        </div> -->
+
+        <Content slug="" />
     </div>    
 </template>
 
 <script>
-import ProductList from "@/components/ProductList";
-import ShoppingCart from "@/components/ShoppingCart";
+// import ProductList from "@/components/ProductList";
+// import ShoppingCart from "@/components/ShoppingCart";
+import Content from "@/views/Content";
 
 export default {
     name: "app",
     components: {
-        ProductList,
-        ShoppingCart,
+        // ProductList,
+        // ShoppingCart,
+        Content,
     },
     methods: {
         startHacking () {

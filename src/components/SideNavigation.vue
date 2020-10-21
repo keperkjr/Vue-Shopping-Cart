@@ -14,8 +14,8 @@
                     Home
                 </div> 
             </router-link>
-            <span v-for="category in categories()" :key="category" >
-                <router-link :to="getCategoryPath(category)">
+            <span v-for="category in categories" :key="category" >
+                <router-link :to="getNavigationPath(category)">
                     <div class="category"
                         :class="[$route.path === getCategoryPath(category) ? 'active' : '']"
                     >
@@ -33,6 +33,7 @@ import {mapState, mapGetters, mapActions} from 'vuex';
 export default {
     data() {
         return {
+            categories: [],
         }
     },
 
@@ -42,7 +43,7 @@ export default {
         }),
 
         ...mapGetters('products', {
-            categories: 'getCategories',
+            getCategories: 'getCategories',
         })
     },
     
@@ -53,11 +54,23 @@ export default {
 
         getCategoryPath(category) {
             return `/category/${category}`.toLowerCase();
-        }
+        },
+        getNavigationPath(category) {
+            return {
+                name: 'Content',
+                params: {
+                    slug: category.toLowerCase(),
+                }
+            };
+        }        
     },
 
     created() {
-        this.fetchProducts(0);  
+        this.fetchProducts({
+            delay: 0,
+        }).then(() => {
+            this.categories = this.getCategories().slice();
+        });  
     }      
 }
 </script>
@@ -89,13 +102,15 @@ export default {
     margin: 5px;
     padding: 12px;
     border-bottom: 1px solid lightgray;
-    transition: all 600ms;
-    border-left: 3px solid #ea7201;
+    transition: background 400ms;
+    /* border-left: 3px solid #ea7201; */
+    font-weight: bold;
 }
 
 .category:hover {
-    border-bottom: 1px solid orange;
+    /* border-bottom: 1px solid orange; */
     font-weight: bold;
+    background-color: #f4f4f4;
 }
 
 .categories a {
@@ -110,5 +125,16 @@ export default {
     background-color: #eff0f1;
     color: black;
     font-weight: bold;
+
+    background-color: var(--sideNavActiveBackground) !important;
+    color: var(--sideNavActiveColor);
+    border-left: 3px solid var(--sideNavActiveColor);
+}
+</style>
+
+<style>
+:root {
+  --sideNavActiveColor: #1967d2;
+  --sideNavActiveBackground: #e8f0fe;
 }
 </style>

@@ -6,11 +6,12 @@ export default {
     
     state: {
         items: [],
+        allItems: [],
     },
 
     getters: {
         availableProducts(state, getters) {
-            return state.items.filter(product => product.inventory > 0);
+            return state.allItems.filter(product => product.inventory > 0);
         },
     
         productIsInStock(state, getters) {
@@ -21,25 +22,26 @@ export default {
         getProductItem(state, getters) {
             return (index) => {
                 index = (typeof index !== 'object') ? index : getters.getProductItemIndex(index);
-                return state.items[index];
+                return state.allItems[index];
             } 
         }, 
         getProductItemIndex(state, getters) {
             return ({id}) => {
-                return state.items.findIndex(item => item.id === id);
+                return state.allItems.findIndex(item => item.id === id);
             }  
         },   
         getCategories(state, getters) {
             return () => {
-                return Utils.arrayUnique(state.items, item => item.categories).sort();
+                return Utils.arrayUnique(state.allItems, item => item.categories).sort();
             }  
         }
     },
 
     mutations: {
-        setProducts(state, products) {
+        setProducts(state, data) {
             // update products
-            state.items = products;
+            state.items = data.products;
+            state.allItems = data.allItems;
         },
     
         decrementProductQuantity(state, product) {
@@ -52,12 +54,25 @@ export default {
     },
 
     actions: {
-        fetchProducts(context, delay = 1000) {
+        fetchProducts(context, data) {
+            const category = data.category || '';
+            let delay = data.delay || 1000;
+
             return new Promise((resolve, reject) => {
-              // Make the call to get the products
-              shop.getProducts(products => {
-                  context.commit('setProducts', products);
-                  resolve();
+                // Make the call to get the products
+                shop.getProducts(products => {
+                    let allItems = products;
+                    if (!Utils.isEmpty(category)) {
+                        products = products.filter(product => {
+                            let item = product.categories.find(item => item.toLowerCase() === category.toLowerCase());
+                            return item != null;
+                        });
+                    }
+                    context.commit('setProducts', {
+                        products,
+                        allItems,
+                    });
+                    resolve();
                 }, delay);    
             });  
         },

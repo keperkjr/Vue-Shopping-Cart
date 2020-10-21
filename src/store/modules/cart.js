@@ -13,7 +13,7 @@ export default {
     getters: {
         cartProducts(state, getters, rootState, rootGetters) {
             return state.items.map(cartItem => {
-                const product = rootState.products.items.find(product => product.id == cartItem.id);
+                const product = getActualProduct(rootGetters, cartItem);
                 return {
                     id: product.id,
                     title: product.title,
@@ -93,7 +93,7 @@ export default {
             if (adjustment > 0) {
                 // Add
                 for (let index = 1; index <= Math.abs(adjustment); ++index) {
-                    let originalProduct = getActualProduct(context, product); 
+                    let originalProduct = getActualProduct(context.rootGetters, product); 
                     context.dispatch('addProductToCart', originalProduct);
                 }
             } else {
@@ -120,7 +120,7 @@ export default {
               // subtract item quantity
               context.commit('subtractItemQuantity', cartItem);
             }
-            let originalProduct = getActualProduct(context, product);            
+            let originalProduct = getActualProduct(context.rootGetters, product);            
             context.commit('products/addProductQuantity', originalProduct, {root: true});            
         },
 
@@ -163,6 +163,6 @@ export default {
     },
 }
 
-function getActualProduct(context, product) {
-    return context.rootGetters['products/getProductItem'](product);
+function getActualProduct(rootGetters, product) {
+    return rootGetters['products/getProductItem'](product);
 }
