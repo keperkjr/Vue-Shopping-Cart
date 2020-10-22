@@ -26,14 +26,20 @@
         </ul>
         <div class="nav-right">      
             <ul class="nav-links">
-                <li class="links">
-                    <router-link to="/login">Login</router-link>
+                <li class="links" >
+                    <router-link :to="{name: 'Login', 
+                        query: Object.assign({}, this.$route.query, {redirect: $route.query.redirect || $route.path}),                    
+                    }">
+                        Log in
+                    </router-link>
                 </li>    
-                <li class="links">
-                    <router-link to="/register">Register</router-link>
-                </li>   
+                <!-- <li class="links">
+                    <router-link :to="{name: 'Register', query: {redirect: $route.fullPath}}">
+                        Create Account
+                    </router-link>
+                </li>    -->
                 <li>
-                    <router-link to="/checkout">
+                    <router-link :to="{name: 'Checkout'}">
                         <el-button type="warning" 
                             icon="el-icon-shopping-cart-full"
                         >
@@ -54,6 +60,12 @@ export default {
             // destinationId: this.$route.params.id,
             // destinations: store.destinations,       
         }
+    },
+
+    computed: {
+        onLoginPageNow() {
+            return this.$route.path.toLowerCase().indexOf('/login') > -1;
+        },
     },
     methods: {
         getNavigationPath(destination) {

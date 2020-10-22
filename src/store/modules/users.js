@@ -16,9 +16,9 @@ export default {
             } 
         }, 
         getUserIndex(state, getters) {
-            return ({id, username}) => {
+            return ({id, email}) => {
                 return state.users.findIndex(
-                    item => item.id === id || item.username === username
+                    item => item.id === id || item.email === email
                 );
             }  
         },
@@ -33,7 +33,7 @@ export default {
 
     actions: {
         createUser(context, data) {
-            if (Utils.isEmpty(data.username)) {
+            if (Utils.isEmpty(data.email)) {
                 throw new Error('Username not specified!');
             } else if (Utils.isEmpty(data.password)) {
                 throw new Error('Password not specified!');

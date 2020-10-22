@@ -1,21 +1,21 @@
 <template>
     <section class="form">   
-        <div class="headerText">
-            Register
-        </div>
+        <article class="headerText">
+            {{action}}
+        </article>
 
-        <div class="row">
-            <label for="username">Username</label>
+        <article class="row">
+            <label for="email">Email</label>
             <el-input
-                name="username"
+                name="email"
                 autocomplete="off"
-                placeholder="Username"
-                v-model="username"
+                placeholder="Email"
+                v-model="email"
                 >
             </el-input> 
-        </div>
+        </article>
 
-        <div class="row">
+        <article class="row">
             <label for="password">Password</label>
             <el-input
                 name="password"
@@ -25,9 +25,9 @@
                 v-model="password"
                 >
             </el-input>  
-        </div>  
+        </article>  
 
-        <div class="row">
+        <article class="row">
             <label for="confirm-password">Confirm Password</label>
             <el-input
                 name="confirm-password"
@@ -37,17 +37,38 @@
                 v-model="passwordConfirm"
                 >
             </el-input>  
-        </div>                 
+        </article>                 
 
-        <div class="row">
-            <el-button @click="login" type="primary">
-                <span class="bold"> Register </span>
+        <article class="row">
+            <el-button @click="register" type="primary">
+                <span class="bold"> {{action}} </span>
             </el-button>
-        </div> 
+        </article> 
 
-        <div class="row" v-if="error">
+        <article class="row" v-if="error">
             <div class="error" v-html="error"></div>
-        </div>         
+        </article>   
+
+        <article class="lineContainer">
+            <div class="line"></div>              
+            <div class="lineContent">
+                or
+            </div> 
+            <div class="line"></div> 
+        </article>
+         
+        <article class="row">
+            <div class="instructions">
+                Already have an account?
+            </div>              
+            <router-link :to="{name: 'Login',
+                query: Object.assign({}, this.$route.query, {redirect: $route.query.redirect})            
+            }">
+                <el-button type="primary" plain>
+                    <span class="bold"> {{alternativeAction}} </span>
+                </el-button>
+            </router-link>
+        </article>              
     </section>
 </template>
 
@@ -58,24 +79,33 @@ import * as Utils from "@/js/utils"
 export default {
     data() {
         return {
-            username: null,
+            email: null,
             password: null,
             passwordConfirm: null,
             error: null,
+            action: 'Create Account',
+            alternativeAction: 'Log In',
         }
     }, 
+
+    computed: {
+        ...mapGetters({
+            getUser: 'users/getUser',
+        }),         
+    },
+    
     methods: {
         ...mapActions({
             createUser: 'users/createUser',
         }),
 
-        login() {
+        register() {
             try {
                 this.validate();
 
                 // Add te user to the store
                 this.createUser({
-                    username: this.username,
+                    email: this.email,
                     password: this.password,
                 });
 
@@ -90,13 +120,16 @@ export default {
                 this.error = e.message;
             }
         },
+
         validate() {
             this.error = null;
 
             let problems = [];
-            if (Utils.isEmpty(this.username)) {
-                problems.push('Username is required');
-            }
+            if (Utils.isEmpty(this.email)) {
+                problems.push('Email address is required');
+            } else if (!Utils.isValidEmail(this.email)) {
+                problems.push(`'${this.email}' is not a valid email address`);
+            }            
             if (Utils.isEmpty(this.password)) {
                 problems.push('Password is required');
             }
@@ -108,6 +141,17 @@ export default {
                 && this.password !== this.passwordConfirm) {
                 problems.push('The two passwords entered do not match');
             }
+
+            if (problems.length < 1) {
+                let existing = this.getUser({
+                    email: this.email,
+                });
+                
+                if (existing) {
+                    problems.push(`A user with the email '${this.email}' already exists!`);
+                }
+            }
+
             if (problems.length > 0) {
                 let message = `
                     Please correct the following:
@@ -137,11 +181,11 @@ export default {
 
 .headerText {
     vertical-align: top;
-    display: inline;
+    display: inline;    
 }
 
 .row {
-    margin: 20px 0;
+    margin: 18px 0;
 }
 
 .bold {
@@ -159,10 +203,17 @@ export default {
     border-radius: 5px;
     border: 1px solid pink;
     text-align: left;
+    padding-bottom: 5px;
 }
 
 label {
     margin-bottom: 10px;
     display: block;
+}
+
+.instructions {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-style: italic;
 }
 </style>

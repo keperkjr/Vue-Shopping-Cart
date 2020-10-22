@@ -1,21 +1,21 @@
 <template>
     <section class="form">   
-        <div class="headerText">
-            Login 
-        </div>
+        <article class="headerText">
+            {{action}} 
+        </article>
 
-        <div class="row">
-            <label for="username">Username</label>
+        <article class="row">
+            <label for="email">Email</label>
             <el-input
-                name="username"
+                name="email"
                 autocomplete="off"
-                placeholder="Username"
-                v-model="username"
+                placeholder="Email"
+                v-model="email"
                 clearable>
             </el-input> 
-        </div>
+        </article>
 
-        <div class="row">
+        <article class="row">
             <label for="password">Password</label>
             <el-input
                 name="password"
@@ -24,39 +24,68 @@
                 v-model="password"
                 clearable>
             </el-input>  
-        </div>           
+        </article>           
 
-        <div class="row">
+        <article class="row">
             <el-button @click="login" type="primary">
-                <span class="bold"> Login </span>
+                <span class="bold"> {{action}} </span>
             </el-button>
-        </div> 
+        </article> 
 
-        <div class="row" v-if="error">
+        <article class="row" v-if="error">
             <div class="error" v-html="error"></div>
-        </div>         
+        </article>   
+
+        <article class="lineContainer">
+            <div class="line"></div>              
+            <div class="lineContent">
+                or
+            </div> 
+            <div class="line"></div> 
+        </article>
+         
+        <article class="row">
+            <div class="instructions">
+                Don't have an account?
+            </div>             
+            <router-link :to="{name: 'Register', 
+                query: Object.assign({}, this.$route.query, {redirect: $route.query.redirect})
+            }">
+                <el-button type="primary" plain>
+                    <span class="bold"> {{alternativeAction}} </span>
+                </el-button>
+            </router-link>           
+        </article>               
     </section>
 </template>
 
 <script>
-import store from "@/store"
+import {mapState, mapGetters, mapActions} from 'vuex';
 import * as Utils from "@/js/utils"
 
 export default {
     data() {
         return {
-            username: null,
+            email: null,
             password: null,
             error: null,
+            action: 'Log In',
+            alternativeAction: 'Create Account',
         }
     }, 
+
+    computed: {
+        ...mapGetters({
+            getUser: 'users/getUser',
+        }),         
+    },
+
     methods: {
         login() {
             try {
                 this.validate();
 
                 // Authenticate user against API
-                store.user = this.username;
                 const redirectPath = this.$route.query.redirect || '/';
                 this.$router.push(redirectPath);
             } catch (e) {
@@ -67,16 +96,32 @@ export default {
             this.error = null;
 
             let problems = [];
-            if (Utils.isEmpty(this.username)) {
+            if (Utils.isEmpty(this.email)) {
                 problems.push('Username is required');
-            }
+            } else if (!Utils.isValidEmail(this.email)) {
+                problems.push(`'${this.email}' is not a valid email address`);
+            } 
             if (Utils.isEmpty(this.password)) {
                 problems.push('Password is required');
             }
 
+            if (problems.length < 1) {
+                let existing = this.getUser({
+                    email: this.email,
+                });
+                
+                if (!existing) {
+                    problems.push(`A user with the email '${this.email}' does not exist`);
+                } else {
+                    if (existing.password !== this.password) {
+                        problems.push(`Password is invalid`);
+                    }
+                }
+            }            
+
             if (problems.length > 0) {
                 let message = `
-                    Please correct the following:
+                    Unable to log in:
                     <ul>
                         ${problems.map((problem) => `<li>${problem}</li>`).join('\n')}
                     </ul>
@@ -92,7 +137,7 @@ export default {
 .form {    
     display: inline-block;
     text-align: center;
-    min-width: 400px;
+    width: 400px;
     margin: 0 auto;
     border: 1px solid lightgrey;
     padding: 20px;
@@ -103,11 +148,11 @@ export default {
 
 .headerText {
     vertical-align: top;
-    display: inline;
+    display: inline;    
 }
 
 .row {
-    margin: 20px 0;
+    margin: 18px 0;
 }
 
 .bold {
@@ -121,15 +166,21 @@ export default {
 
 .error {
     background-color: #fa80723d;
-    padding: 15px;
-    padding-left: 25px;
+    padding: 15px 25px;
     border-radius: 5px;
     border: 1px solid pink;
     text-align: left;
+    padding-bottom: 5px;
 }
 
 label {
     margin-bottom: 10px;
     display: block;
+}
+
+.instructions {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-style: italic;
 }
 </style>
