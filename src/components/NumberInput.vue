@@ -97,6 +97,6 @@ export default {
     text-align: center;
 }
 .el-input-number--mini {
-    width: 80px;
+    width: 92px;
 }
 </style>

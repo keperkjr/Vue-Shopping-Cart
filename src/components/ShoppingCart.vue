@@ -22,6 +22,7 @@
             >
             <el-table-column
                 label="Item"
+                width="80"
                 >
                 <template v-slot="scope">
                     {{ scope.row.title }}
@@ -29,6 +30,7 @@
             </el-table-column>
             <el-table-column
                 label="Price"
+                width="80"
                 >
                 <template v-slot="scope">
                     {{ scope.row.price | currency }}
@@ -36,6 +38,7 @@
             </el-table-column>
             <el-table-column
                 label="Quantity"
+                width="100"
                 >
                 <template v-slot="scope">
                     <div class="center">

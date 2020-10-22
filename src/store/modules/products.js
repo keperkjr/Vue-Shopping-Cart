@@ -60,23 +60,36 @@ export default {
 
             return new Promise((resolve, reject) => {
                 // Make the call to get the products
-                shop.getProducts(products => {
-                    let allItems = products;
-                    if (!Utils.isEmpty(category)) {
-                        products = products.filter(product => {
-                            let item = product.categories.find(item => item.toLowerCase() === category);
-                            return item != null;
-                        });
-                    }
+                if (context.state.allItems.length > 0) {
+                    // debugger;
+                    let allItems = context.state.allItems;
+                    let filtered = filterCategory(allItems, category);
                     context.commit('setProducts', {
-                        products,
+                        products: filtered,
                         allItems,
                     });
                     resolve();
-                }, delay);    
+                } else {
+                    shop.getProducts(products => {
+                        let allItems = products;
+                        let filtered = filterCategory(allItems, category);
+                        context.commit('setProducts', {
+                            products: filtered,
+                            allItems,
+                        });
+                        resolve();
+                    }, delay); 
+                }
             });  
         },
     },
+}
+
+function filterCategory(products, category) {
+    return products.filter(product => {
+        let item = product.categories.find(item => Utils.isEmpty(category) || item.toLowerCase() === category);
+        return item != null;
+    });    
 }
 
 // // https://stackoverflow.com/a/60610161
