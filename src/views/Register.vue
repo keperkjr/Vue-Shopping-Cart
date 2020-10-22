@@ -1,7 +1,7 @@
 <template>
     <section class="form">   
         <div class="headerText">
-            Login 
+            Register
         </div>
 
         <div class="row">
@@ -11,7 +11,7 @@
                 autocomplete="off"
                 placeholder="Username"
                 v-model="username"
-                clearable>
+                >
             </el-input> 
         </div>
 
@@ -21,14 +21,27 @@
                 name="password"
                 autocomplete="off"
                 placeholder="Password"
+                show-password
                 v-model="password"
-                clearable>
+                >
             </el-input>  
-        </div>           
+        </div>  
+
+        <div class="row">
+            <label for="confirm-password">Confirm Password</label>
+            <el-input
+                name="confirm-password"
+                autocomplete="off"
+                placeholder="Confirm Password"
+                show-password
+                v-model="passwordConfirm"
+                >
+            </el-input>  
+        </div>                 
 
         <div class="row">
             <el-button @click="login" type="primary">
-                <span class="bold"> Login </span>
+                <span class="bold"> Register </span>
             </el-button>
         </div> 
 
@@ -47,6 +60,7 @@ export default {
         return {
             username: null,
             password: null,
+            passwordConfirm: null,
             error: null,
         }
     }, 
@@ -73,7 +87,14 @@ export default {
             if (Utils.isEmpty(this.password)) {
                 problems.push('Password is required');
             }
-
+            if (Utils.isEmpty(this.passwordConfirm)) {
+                problems.push('Password confirmation is required');
+            }
+            if (!Utils.isEmpty(this.password) 
+                && !Utils.isEmpty(this.passwordConfirm) 
+                && this.password !== this.passwordConfirm) {
+                problems.push('The two passwords entered do not match');
+            }
             if (problems.length > 0) {
                 let message = `
                     Please correct the following:
@@ -92,7 +113,7 @@ export default {
 .form {    
     display: inline-block;
     text-align: center;
-    min-width: 400px;
+    width: 400px;
     margin: 0 auto;
     border: 1px solid lightgrey;
     padding: 20px;
@@ -121,8 +142,7 @@ export default {
 
 .error {
     background-color: #fa80723d;
-    padding: 15px;
-    padding-left: 25px;
+    padding: 15px 25px;
     border-radius: 5px;
     border: 1px solid pink;
     text-align: left;
