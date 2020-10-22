@@ -28,13 +28,15 @@
             <ul class="nav-links">
                 <li class="links" >
                     <router-link :to="{name: 'Login', 
-                        query: Object.assign({}, this.$route.query, {redirect: $route.query.redirect || $route.path}),                    
+                        query: redirectQuery,                    
                     }">
                         Log in
                     </router-link>
                 </li>    
                 <!-- <li class="links">
-                    <router-link :to="{name: 'Register', query: {redirect: $route.fullPath}}">
+                    <router-link :to="{name: 'Register', 
+                        query: redirectQuery}"
+                    >
                         Create Account
                     </router-link>
                 </li>    -->
@@ -65,6 +67,9 @@ export default {
     computed: {
         onLoginPageNow() {
             return this.$route.path.toLowerCase().indexOf('/login') > -1;
+        },
+        redirectQuery() {
+            return Object.assign({}, this.$route.query, {redirect: this.$route.query.redirect || this.$route.path})
         },
     },
     methods: {

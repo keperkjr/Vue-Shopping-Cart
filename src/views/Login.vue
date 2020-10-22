@@ -27,7 +27,9 @@
         </article>           
 
         <article class="row">
-            <el-button @click="login" type="primary">
+            <el-button @click="login" type="primary"
+                :loading="isLoading"            
+            >
                 <span class="bold"> {{action}} </span>
             </el-button>
         </article> 
@@ -49,7 +51,7 @@
                 Don't have an account?
             </div>             
             <router-link :to="{name: 'Register', 
-                query: Object.assign({}, this.$route.query, {redirect: $route.query.redirect})
+                query: redirectQuery
             }">
                 <el-button type="primary" plain>
                     <span class="bold"> {{alternativeAction}} </span>
@@ -71,25 +73,37 @@ export default {
             error: null,
             action: 'Log In',
             alternativeAction: 'Create Account',
+            isLoading: false,
         }
     }, 
 
     computed: {
         ...mapGetters({
             getUser: 'users/getUser',
-        }),         
+        }),     
+        redirectQuery() {
+            return Object.assign({}, this.$route.query, {redirect: this.$route.query.redirect});
+        },            
     },
 
     methods: {
         login() {
             try {
+                this.isLoading = true;
                 this.validate();
+
+                this.$message({
+                    type: 'success',
+                    message: `Welcome back ${this.email}!`
+                });                
 
                 // Authenticate user against API
                 const redirectPath = this.$route.query.redirect || '/';
                 this.$router.push(redirectPath);
             } catch (e) {
                 this.error = e.message;
+            } finally {
+                this.isLoading = false;
             }
         },
         validate() {

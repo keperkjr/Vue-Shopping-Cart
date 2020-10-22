@@ -40,7 +40,9 @@
         </article>                 
 
         <article class="row">
-            <el-button @click="register" type="primary">
+            <el-button @click="register" type="primary"
+                :loading="isLoading" 
+            >
                 <span class="bold"> {{action}} </span>
             </el-button>
         </article> 
@@ -62,7 +64,7 @@
                 Already have an account?
             </div>              
             <router-link :to="{name: 'Login',
-                query: Object.assign({}, this.$route.query, {redirect: $route.query.redirect})            
+                query: redirectQuery          
             }">
                 <el-button type="primary" plain>
                     <span class="bold"> {{alternativeAction}} </span>
@@ -85,13 +87,18 @@ export default {
             error: null,
             action: 'Create Account',
             alternativeAction: 'Log In',
+            isLoading: false,
         }
     }, 
 
     computed: {
         ...mapGetters({
             getUser: 'users/getUser',
-        }),         
+        }), 
+
+        redirectQuery() {
+            return Object.assign({}, this.$route.query, {redirect: this.$route.query.redirect});
+        },                 
     },
     
     methods: {
@@ -101,6 +108,7 @@ export default {
 
         register() {
             try {
+                this.isLoading = true;
                 this.validate();
 
                 // Add te user to the store
@@ -118,6 +126,8 @@ export default {
                 this.$router.push(redirectPath);
             } catch (e) {
                 this.error = e.message;
+            } finally {
+                this.isLoading = false;
             }
         },
 
