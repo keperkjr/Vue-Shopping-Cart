@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import store from "@/store"
+import {mapState, mapGetters, mapActions} from 'vuex';
 import * as Utils from "@/js/utils"
 
 export default {
@@ -65,12 +65,25 @@ export default {
         }
     }, 
     methods: {
+        ...mapActions({
+            createUser: 'users/createUser',
+        }),
+
         login() {
             try {
                 this.validate();
 
-                // Authenticate user against API
-                store.user = this.username;
+                // Add te user to the store
+                this.createUser({
+                    username: this.username,
+                    password: this.password,
+                });
+
+                this.$message({
+                    type: 'success',
+                    message: `Account successfully created!`
+                });                 
+
                 const redirectPath = this.$route.query.redirect || '/';
                 this.$router.push(redirectPath);
             } catch (e) {

@@ -34,3 +34,47 @@ export let isNull = (item) => {
 export let isEmpty = (str) => {
     return isNull(str) || String(str).trim().length < 1;
 }
+
+/**
+* FUNCTION: arrayMax
+* USE: Returns the maximum value in a sequence.
+* @param array: Array to determine the maximum value of.
+* @param selector: Optional. A transform function to extract values from each element.
+* @return: The maximum value in the sequence.
+*/
+export let arrayMax = (array, selector = null) => {
+    let value = arrayMinMax(array, compareType.max, selector);
+    return value;
+}
+
+/**
+* FUNCTION: arrayMin
+* USE: Returns the minimum value in a sequence.
+* @param array: Array to determine the minimum value of.
+* @param selector: Optional. A transform function to extract values from each element.
+* @return: The minimum value in the sequence.
+*/
+export let arrayMin = (array, selector = null) => {
+    let value = arrayMinMax(array, compareType.min, selector);
+    return value;
+}
+
+let arrayMinMax = (array, type, selector = null) => {
+    if (typeof selector !== 'function') {
+        selector = (item) => item;
+    }
+    let value = array
+        .map((item) => selector.call(array, item))
+        .reduce((x, y) => compare(x, y, type) ? x : y);
+    return value;
+}    
+
+let compare = (valueX, valueY, type) => {
+    let result = valueX > valueY ? 1 : -1;
+    if (type === compareType.min) {
+        result *= -1;
+    }
+    return result > 0;
+}
+
+let compareType = Object.freeze({min: 1, max: 2});
