@@ -62,15 +62,21 @@ export default {
                     slug: category.toLowerCase(),
                 }
             };
-        }        
+        },
+        
+        setCategories() {
+            this.categories = this.getCategories();
+        }
     },
 
     created() {
-        this.fetchProducts({
-            delay: 0,
-        }).then(() => {
-            this.categories = this.getCategories().slice();
-        });  
+        if (this.products.length > 0) {
+            this.setCategories()
+        } else {
+            this.fetchProducts({
+                delay: 0,
+            }).then(() => this.setCategories() ); 
+        } 
     }      
 }
 </script>

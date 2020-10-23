@@ -6,8 +6,8 @@
         <div class="container">
             <div class="sideNav">
                 <SideNavigation />
-            </div>
-            <div class="content">        
+            </div>            
+            <div class="content">                       
                 <transition name="fade" mode="out-in"> 
                     <router-view :key="$route.path" />
                 </transition>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import {mapState, mapGetters, mapActions} from 'vuex';
 import TopNavigation from "@/components/TopNavigation"
 import SideNavigation from "@/components/SideNavigation"
 
@@ -26,19 +27,27 @@ export default {
         TopNavigation,
         SideNavigation,
     },
-    // methods: {
-    //     ...mapActions({
-    //         fetchProducts: 'products/fetchProducts',
-    //     }),        
-    // },
 
-    // created() {
-    //     this.isLoading = true;
-    //     this.fetchProducts()
-    //         .then(() => this.isLoading = false);        
-    //     // this.$store.dispatch('fetchProducts')
-    //     //     .then(() => this.isLoading = false);
-    // }      
+    data() {
+        return {
+            isLoading: false,
+        }
+    },
+
+    methods: {
+        ...mapActions({
+            fetchProducts: 'products/fetchProducts',
+        }),        
+    },
+
+    created() {
+        this.isLoading = true;
+        this.fetchProducts()
+            .then(() => this.isLoading = false);
+                    
+        // this.$store.dispatch('fetchProducts')
+        //     .then(() => this.isLoading = false);
+    }      
 }
 </script>
 

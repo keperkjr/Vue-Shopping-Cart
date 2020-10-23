@@ -8,6 +8,7 @@ import users from "./modules/users"
 
 Vue.use(Vuex);
 
+//https://stackoverflow.com/questions/43027499/vuex-state-on-page-refresh
 // npm install --save vuex-persistedstate
 
 export default new Vuex.Store({

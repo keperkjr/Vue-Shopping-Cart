@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <section>
         <div class="products">
             <ProductList :category="slug"/>
         </div>
         <div class="cart">
             <ShoppingCart />
         </div> 
-    </div>  
+    </section>  
 </template>
 
 <script>
@@ -51,11 +51,23 @@ export default {
 }
 
 .products {
-    min-width: 72%;
+    min-width: 68%;
     margin-right: 10px;
 }
 
 .cart {
     min-width: 25%;
+}
+
+@media screen and (max-width: 1350px) {
+    .cart {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .products {
+        width: 50%;
+    }
 }
 </style>

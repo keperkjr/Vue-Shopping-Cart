@@ -6,12 +6,11 @@ export default {
     
     state: {
         items: [],
-        allItems: [],
     },
 
     getters: {
         availableProducts(state, getters) {
-            return state.allItems.filter(product => product.inventory > 0);
+            return state.items.filter(product => product.inventory > 0);
         },
     
         productIsInStock(state, getters) {
@@ -22,26 +21,30 @@ export default {
         getProductItem(state, getters) {
             return (index) => {
                 index = (typeof index !== 'object') ? index : getters.getProductItemIndex(index);
-                return state.allItems[index];
+                return state.items[index];
             } 
         }, 
         getProductItemIndex(state, getters) {
             return ({id}) => {
-                return state.allItems.findIndex(item => item.id === id);
+                return state.items.findIndex(item => item.id === id);
             }  
         },   
         getCategories(state, getters) {
             return () => {
-                return Utils.arrayUnique(state.allItems, item => item.categories).sort();
+                return Utils.arrayUnique(state.items, item => item.categories).sort();
             }  
+        }, 
+        filterProducts(state, getters) {
+            return (category) => {
+                return filterCategory(state.items, category);
+            }
         }
     },
 
     mutations: {
         setProducts(state, data) {
             // update products
-            state.items = data.products;
-            state.allItems = data.allItems;
+            state.items = data.items;
         },
     
         decrementProductQuantity(state, product) {
@@ -55,31 +58,26 @@ export default {
 
     actions: {
         fetchProducts(context, data) {
-            const category = (data.category || '').toLowerCase();
-            let delay = data.delay || 1000;
+            const category = ((data && data.category != null ? data.category : null) || '').toLowerCase();
+            let delay = (data && data.delay != null ? data.delay : 1000);
 
             return new Promise((resolve, reject) => {
-                // Make the call to get the products
-                if (context.state.allItems.length > 0) {
-                    // debugger;
-                    let allItems = context.state.allItems;
-                    let filtered = filterCategory(allItems, category);
+                let setProducts = (items)  => {
                     context.commit('setProducts', {
-                        products: filtered,
-                        allItems,
-                    });
-                    resolve();
-                } else {
-                    shop.getProducts(products => {
-                        let allItems = products;
-                        let filtered = filterCategory(allItems, category);
-                        context.commit('setProducts', {
-                            products: filtered,
-                            allItems,
-                        });
-                        resolve();
-                    }, delay); 
+                        items,
+                    });                    
                 }
+                setTimeout(() => {
+                    if (context.state.items.length > 0) {
+                        resolve();
+                    } else {
+                        // Make the call to get the products
+                        shop.getProducts(products => {
+                            setProducts(products);
+                            resolve();
+                        }, 0); 
+                    }
+                }, delay)            
             });  
         },
     },

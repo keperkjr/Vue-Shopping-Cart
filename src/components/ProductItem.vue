@@ -159,4 +159,26 @@ export default {
     color: #398ee5;
     font-weight: bold;
 }
+
+@media screen and (max-width: 950px) {
+    .container {
+        border: 1px solid lightgrey;
+        border-top: none;
+    }
+
+    .container:first-of-type {   
+        border-top: 1px solid lightgrey;
+    }        
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: 220px;
+        height: 100%;
+    }
+
+    .grow:hover {
+        transform: unset;
+    }       
+}
 </style>

@@ -22,7 +22,7 @@
             >
             <el-table-column
                 label="Item"
-                width="80"
+                width="90"
                 >
                 <template v-slot="scope">
                     {{ scope.row.title }}

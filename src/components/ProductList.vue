@@ -46,19 +46,24 @@ export default {
     },
 
     computed: {
-        ...mapState({
-            products: state => state.products.items,            
-        }),
+        // ...mapState({
+        //     products: state => state.products.items,            
+        // }),
 
         ...mapGetters('products', {
             productIsInStock: 'productIsInStock',
             availableProducts: 'availableProducts',
+            filterProducts: 'filterProducts',
         }),
 
         categoryName() {
             let name = this.category && this.category.length > 0 
                 ? this.category : 'Products';
             return name;
+        },
+
+        products() {
+            return this.filterProducts(this.category);
         }
                 
         // products() {
@@ -91,12 +96,9 @@ export default {
 
     created() {    
         this.isLoading = true;
-        this.fetchProducts({
-            category: this.category,
-        })
-        .then(() => this.isLoading = false);        
-        // this.$store.dispatch('fetchProducts')
-        //     .then(() => this.isLoading = false);
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 1000);        
     }
 }
 </script>
