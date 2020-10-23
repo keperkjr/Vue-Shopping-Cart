@@ -104,6 +104,7 @@ export default {
     methods: {
         ...mapActions({
             createUser: 'users/createUser',
+            logIn: 'users/logIn',
         }),
 
         register() {
@@ -116,6 +117,8 @@ export default {
                     email: this.email,
                     password: this.password,
                 });
+
+                this.logIn(this.email);
 
                 this.$message({
                     type: 'success',
@@ -213,7 +216,7 @@ export default {
     border-radius: 5px;
     border: 1px solid pink;
     text-align: left;
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
 }
 
 label {

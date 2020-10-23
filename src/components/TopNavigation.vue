@@ -26,7 +26,12 @@
         </ul>
         <div class="nav-right">      
             <ul class="nav-links">
-                <li class="links" >
+                <li v-if="getLoggedInUser() != null">
+                    <router-link to="">
+                        Hi {{getLoggedInUser().email}}
+                    </router-link>                    
+                </li>
+                <li v-else class="links" >
                     <router-link :to="{name: 'Login', 
                         query: redirectQuery,                    
                     }">
@@ -55,23 +60,30 @@
 </template>
 
 <script>
+import {mapState, mapGetters, mapActions} from 'vuex';
 
 export default {
     data() {
         return {
             // destinationId: this.$route.params.id,
-            // destinations: store.destinations,       
+            // destinations: store.destinations,     
         }
     },
 
     computed: {
-        onLoginPageNow() {
+        ...mapGetters({
+            getLoggedInUser: 'users/getLoggedInUser',
+        }),
+
+        isOnLoginPage() {
             return this.$route.path.toLowerCase().indexOf('/login') > -1;
         },
+
         redirectQuery() {
             return Object.assign({}, this.$route.query, {redirect: this.$route.query.redirect || this.$route.path})
-        },
+        }, 
     },
+
     methods: {
         getNavigationPath(destination) {
             return {
@@ -82,7 +94,7 @@ export default {
                 }
             };
         }        
-    }
+    },
 }
 </script>
 
@@ -124,6 +136,7 @@ export default {
 .nav-links {
     display: flex;
     align-items: center;
+    list-style-type: none;
 }
 
 .links {

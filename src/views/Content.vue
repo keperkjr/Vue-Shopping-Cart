@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="contentContainer">
         <div class="products">
             <ProductList :category="slug"/>
         </div>
@@ -68,6 +68,14 @@ export default {
 @media screen and (max-width: 1000px) {
     .products {
         width: 50%;
-    }
+    }   
+}
+
+@media screen and (max-width: 700px) {
+    .contentContainer {
+        display: flex;
+        justify-items: flex-start;
+        margin-left: 20px;
+    }    
 }
 </style>

@@ -5,16 +5,28 @@ export default {
     namespaced: true,
     
     state: {
+        // {id, email, password}
         users: [],
+        loggedInUser: null,
     },
 
     getters: {
+        getLoggedInUser(state, getters) {
+            return () => {
+                return Utils.isNull(state.loggedInUser) ? state.loggedInUser 
+                    : getters.getUser({
+                        id: state.loggedInUser,
+                    });
+            } 
+        },        
+
         getUser(state, getters) {
-            return (index) => {
+            return (index) => {            
                 index = (typeof index !== 'object') ? index : getters.getUserIndex(index);
                 return state.users[index];
             } 
         }, 
+
         getUserIndex(state, getters) {
             return ({id, email}) => {
                 return state.users.findIndex(
@@ -28,7 +40,11 @@ export default {
         saveUser(state, data) {
             // save user
             state.users.push(data);
-        },      
+        },   
+        
+        setLoggedInUser(state, data) {
+            state.loggedInUser = data;
+        }
     },
 
     actions: {
@@ -39,7 +55,27 @@ export default {
                 throw new Error('Password not specified!');
             }
             data.id = getNextId(context);
-            context.commit('saveUser', data);  
+            context.commit('saveUser', data);
+            return context.getters.getUser({
+                email: data.email,
+            });  
+        },
+
+        logIn(context, data) {
+            let user = context.getters.getUser({email: data});
+            if (Utils.isNull(user)) {
+                throw new Error('Unable to determine user');
+            }            
+            context.commit('setLoggedInUser', user.id);
+            return user;
+        },
+
+        logOut(context, data) {
+            let user = context.getters.getUser({email: data});
+            if (Utils.isNull(user)) {
+                throw new Error('Unable to determine user');
+            }  
+            context.commit('setLoggedInUser', null);           
         },
     },
 }

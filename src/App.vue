@@ -90,23 +90,11 @@ html, body {
     display: inline;
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.content {
-    display: inline-block;
-    margin-top: 25px;
-    min-width: 85%;
-}
-
 .sideNav {
-    width: 210px;
+    min-width: 210px;
     display: inline-block;
     vertical-align: top;
 }
-
 
 .grow:hover {
     transform: scale(1.1);
@@ -155,5 +143,18 @@ html, body {
     line-height: 15px;
     margin: 0 18px;
     text-transform: uppercase;
+}
+</style>
+
+<style scoped>
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content {
+    display: inline-block;
+    margin-top: 25px;
+    min-width: 85%;
 }
 </style>

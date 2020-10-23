@@ -1,5 +1,5 @@
 <template>
-    <section class="container">
+    <section class="sideNavContainer">
         <div class="headerContainer">
             <div class="headerText"> 
                 Categories
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.sideNavContainer {
     display: inline-block;
     vertical-align: top;
     border: 1px solid lightgrey;
