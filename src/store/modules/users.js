@@ -98,7 +98,7 @@ export default {
                     setTimeout(() => { 
                         context.commit('setLoggedInUser', null);
                         resolve(user) 
-                    }, 500);    
+                    }, 200);    
                 } catch (e) {
                     reject(e);
                 }

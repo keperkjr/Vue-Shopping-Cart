@@ -100,13 +100,37 @@ export default {
         }), 
 
         async logOutUser() {
+            let shouldLogOut = await this.verifyLogOut();
+            if (!shouldLogOut) {
+                return;
+            }
             let user = await this.logOut();
 
             this.$message({
                 type: 'success',
                 message: `You have logged out ${user.email}!`
             });              
-        }
+        },
+
+        async verifyLogOut() {
+            let user = this.getLoggedInUser()
+            let cancelLogout = true;
+            try {
+                await this.$confirm(`Are you sure you want to log out ${user.email}?`, 'Log Out?', {
+                    confirmButtonText: 'Cancel',
+                    cancelButtonText: `Yes, I want to log out`, 
+                    type: 'warning',
+                    closeOnClickModal: false,
+                    closeOnPressEscape: false,
+                    confirmButtonClass: 'el-button',
+                    cancelButtonClass: 'el-button--danger',
+                    showClose: false,
+                });
+            } catch (e) {
+                cancelLogout = false;
+            }
+            return !cancelLogout;
+        }        
     },
 }
 </script>
