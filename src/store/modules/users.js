@@ -49,33 +49,60 @@ export default {
 
     actions: {
         createUser(context, data) {
-            if (Utils.isEmpty(data.email)) {
-                throw new Error('Username not specified!');
-            } else if (Utils.isEmpty(data.password)) {
-                throw new Error('Password not specified!');
-            }
-            data.id = getNextId(context);
-            context.commit('saveUser', data);
-            return context.getters.getUser({
-                email: data.email,
+            return new Promise((resolve, reject) => {
+                try {
+                    if (Utils.isEmpty(data.email)) {
+                        throw new Error('Username not specified!');
+                    } else if (Utils.isEmpty(data.password)) {
+                        throw new Error('Password not specified!');
+                    }
+                    data.id = getNextId(context);
+                    context.commit('saveUser', data);
+                    let user = context.getters.getUser({
+                        email: data.email,
+                    });
+
+                    setTimeout(() => resolve(user), 100);                    
+                } catch(e) {
+                    reject(e);
+                }
             });  
         },
 
         logIn(context, data) {
-            let user = context.getters.getUser({email: data});
-            if (Utils.isNull(user)) {
-                throw new Error('Unable to determine user');
-            }            
-            context.commit('setLoggedInUser', user.id);
-            return user;
+            return new Promise((resolve, reject) => {
+                try {
+                    let user = context.getters.getUser({email: data});
+                    if (Utils.isNull(user)) {
+                        throw new Error('Unable to determine user');
+                    }            
+                    
+                    setTimeout(() => {
+                        context.commit('setLoggedInUser', user.id);
+                        resolve(user);
+                    }, 1000);  
+                } catch (e) {
+                    reject(e);
+                }
+            });
         },
 
-        logOut(context, data) {
-            let user = context.getters.getUser({email: data});
-            if (Utils.isNull(user)) {
-                throw new Error('Unable to determine user');
-            }  
-            context.commit('setLoggedInUser', null);           
+        logOut(context) {
+            return new Promise((resolve, reject) => {
+                try {
+                    let user = context.getters.getLoggedInUser();
+                    if (Utils.isNull(user)) {
+                        throw new Error('Unable to determine user');
+                    }                       
+
+                    setTimeout(() => { 
+                        context.commit('setLoggedInUser', null);
+                        resolve(user) 
+                    }, 500);    
+                } catch (e) {
+                    reject(e);
+                }
+            });      
         },
     },
 }

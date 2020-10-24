@@ -27,9 +27,9 @@
         <div class="nav-right">      
             <ul class="nav-links">
                 <li v-if="getLoggedInUser() != null">
-                    <router-link to="">
-                        Hi {{getLoggedInUser().email}}
-                    </router-link>                    
+                    <div class="logout" @click="logOutUser">
+                        Logout {{getLoggedInUser().email}}
+                    </div>                    
                 </li>
                 <li v-else class="links" >
                     <router-link :to="{name: 'Login', 
@@ -93,11 +93,23 @@ export default {
                     slug: destination.slug
                 }
             };
-        }        
+        },
+        
+        ...mapActions({
+            logOut: 'users/logOut',
+        }), 
+
+        async logOutUser() {
+            let user = await this.logOut();
+
+            this.$message({
+                type: 'success',
+                message: `You have logged out ${user.email}!`
+            });              
+        }
     },
 }
 </script>
-
 
 <style scoped>
 .inline {
@@ -165,5 +177,15 @@ export default {
     background-color: #ffc107;
     font-weight: bold;
     color: whitesomke;
+}
+
+.logout {
+    color: hsla(0,0%,100%,.5);
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.logout:hover {
+    color: white;
 }
 </style>

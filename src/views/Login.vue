@@ -22,12 +22,13 @@
                 autocomplete="off"
                 placeholder="Password"
                 v-model="password"
-                clearable>
+                show-password
+                >
             </el-input>  
         </article>           
 
         <article class="row">
-            <el-button @click="login" type="primary"
+            <el-button @click="logInUser" type="primary"
                 :loading="isLoading"            
             >
                 <span class="bold"> {{action}} </span>
@@ -87,10 +88,16 @@ export default {
     },
 
     methods: {
-        login() {
+        ...mapActions({            
+            logIn: 'users/logIn',
+        }),
+
+        async logInUser() {
             try {
                 this.isLoading = true;
                 this.validate();
+
+                await this.logIn(this.email);
 
                 this.$message({
                     type: 'success',

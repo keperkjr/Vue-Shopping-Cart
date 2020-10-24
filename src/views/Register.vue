@@ -107,18 +107,18 @@ export default {
             logIn: 'users/logIn',
         }),
 
-        register() {
+        async register() {
             try {
                 this.isLoading = true;
                 this.validate();
 
                 // Add te user to the store
-                this.createUser({
+                await this.createUser({
                     email: this.email,
                     password: this.password,
                 });
 
-                this.logIn(this.email);
+                await this.logIn(this.email);
 
                 this.$message({
                     type: 'success',
