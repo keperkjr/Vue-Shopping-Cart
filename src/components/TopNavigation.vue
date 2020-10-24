@@ -50,7 +50,10 @@
                         <el-button type="warning" 
                             icon="el-icon-shopping-cart-full"
                         >
-                            Checkout
+                            Checkout 
+                            <span v-if="cartQuantity > 0">
+                                ({{cartQuantity}})
+                            </span>
                         </el-button>
                     </router-link>
                 </li>
@@ -74,6 +77,10 @@ export default {
         ...mapGetters({
             getLoggedInUser: 'users/getLoggedInUser',
         }),
+
+        ...mapGetters('cart', {
+            cartQuantity: 'cartQuantity',
+        }),         
 
         isOnLoginPage() {
             return this.$route.path.toLowerCase().indexOf('/login') > -1;

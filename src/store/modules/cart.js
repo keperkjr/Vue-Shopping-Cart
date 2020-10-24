@@ -72,7 +72,7 @@ export default {
             state.checkoutStatus = status;
         },
     
-        emptyCart(state) {
+        resetCart(state) {
             state.items = [];
         }              
     },
@@ -118,8 +118,8 @@ export default {
                 // remove the item from the the cart
                 context.commit('removeItemFromCart', index);
             } else {
-              // subtract item quantity
-              context.commit('subtractItemQuantity', cartItem);
+                // subtract item quantity
+                context.commit('subtractItemQuantity', cartItem);
             }
             let originalProduct = getActualProduct(context.rootGetters, product);            
             context.commit('products/addProductQuantity', originalProduct, {root: true});            
@@ -139,28 +139,47 @@ export default {
                 // add item to the cart
                 context.commit('pushProductToCart', product.id);
             } else {
-              // increment item quantity
-              context.commit('addItemQuantity', cartItem);
+                // increment item quantity
+                context.commit('addItemQuantity', cartItem);
             }
             context.commit('products/decrementProductQuantity', product, {root: true});
         },
 
         checkout(context) {
-          return new Promise((resolve, reject) => {
-            shop.buyProducts(
-              context.state.items,
-              () => {
-                context.commit('emptyCart');
-                context.commit('setCheckoutStatus', 'success');
-                resolve();
-              },
-              () => {
-                context.commit('setCheckoutStatus', 'failed');
-                reject();
-              }
-            );
-          });
-        }        
+            return new Promise((resolve, reject) => {
+                shop.buyProducts(
+                    context.state.items,
+                    () => {
+                        context.commit('resetCart');
+                        context.commit('setCheckoutStatus', 'success');
+                        resolve();
+                    },
+                    () => {
+                        context.commit('setCheckoutStatus', 'failed');
+                        reject();
+                    }
+                );
+            });
+        },
+        
+        clear(context, data) {
+            return new Promise((resolve, reject) => {
+                try {
+                    const items = context.state.items;
+                    for (let index = items.length-1; index >= 0; --index) {
+                        const item = items[index];
+                        context.dispatch('adjustQuantity', {
+                            product: item,
+                            quantity: 0,
+                        }); 
+                    }
+                    resolve();
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        },
+
     },
 }
 

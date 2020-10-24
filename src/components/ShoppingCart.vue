@@ -84,7 +84,7 @@ export default {
         ...mapGetters('cart', {
             products: 'cartProducts',
             total: 'cartTotal',
-            quantity: 'cartQuantity',
+            quantity: 'cartQuantity',            
         }),      
 
         // products() {
@@ -98,14 +98,20 @@ export default {
         ...mapActions('cart', {
             checkout: 'checkout',
             adjustQuantity: 'adjustQuantity',
+            clear: 'clear',
         }),
 
         getItem(id) {
             return this.products.find((product) => product.id === id);
         },
 
+        async cartClear() {
+            await this.clear();
+        },        
+
         async cartCheckout() {
             this.processing = true;
+
             let message = {
                 title: 'Success!',
                 type: 'success',
