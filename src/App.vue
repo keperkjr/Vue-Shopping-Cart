@@ -90,12 +90,6 @@ html, body {
     display: inline;
 }
 
-.sideNav {
-    min-width: 210px;
-    display: inline-block;
-    vertical-align: top;
-}
-
 .grow:hover {
     transform: scale(1.1);
 }
@@ -156,5 +150,11 @@ html, body {
     display: inline-block;
     margin-top: 25px;
     min-width: 85%;
+}
+
+.sideNav {
+    min-width: 210px;
+    display: inline-block;
+    vertical-align: top;
 }
 </style>

@@ -39,12 +39,12 @@
             <div class="error" v-html="error"></div>
         </article>   
 
-        <article class="lineContainer">
-            <div class="line"></div>              
-            <div class="lineContent">
+        <article class="divider">
+            <div class="divider-line"></div>              
+            <div class="divider-content">
                 or
             </div> 
-            <div class="line"></div> 
+            <div class="divider-line"></div> 
         </article>
          
         <article class="row">

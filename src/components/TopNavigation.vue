@@ -6,11 +6,11 @@
             </div>        
         </router-link>
         <ul class="nav-links">
-            <li class="links">
+            <!-- <li class="links">
                 <router-link to="/" exact>
                     Home
                 </router-link>
-            </li>
+            </li> -->
             <!-- <li v-for="destination in destinations"
                 :key="destination.name"
                 class="links"
