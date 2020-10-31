@@ -1,5 +1,5 @@
 import shop from "@/api/shop"
-import * as Utils from "@/js/utils"
+import Utils from "@/js/utils"
 
 export default {
     namespaced: true,

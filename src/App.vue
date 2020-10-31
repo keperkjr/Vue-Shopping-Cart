@@ -156,5 +156,13 @@ html, body {
     min-width: 210px;
     display: inline-block;
     vertical-align: top;
+    box-shadow: 2px 0 10px rgba(0,0,0,.1);
+}
+
+@media screen and (max-width: 600px) {
+    .sideNav {
+        min-width: unset;
+        width: 150px;
+    }     
 }
 </style>
