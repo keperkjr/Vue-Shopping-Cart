@@ -98,7 +98,7 @@ html, body {
     transition: all .2s ease-in-out;
 }
 
-.line {
+.divider-line {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
     -ms-flex-positive: 1;
@@ -113,7 +113,7 @@ html, body {
     top: .45em;
 }
 
-.lineContainer {
+.divider {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
@@ -122,7 +122,7 @@ html, body {
     display: flex;
 }
 
-.lineContent {
+.divider-content {
     color: #8e8e8e;
     color: rgba(142,142,142,1);
     -webkit-box-flex: 0;
