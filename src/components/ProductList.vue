@@ -1,7 +1,7 @@
 <template>
     <section> 
-        <div class="headerContainer">
-            <div class="headerText"> 
+        <div class="header-container">
+            <div class="header-text"> 
                 {{categoryName}} 
             </div>            
         </div>
@@ -104,11 +104,11 @@ export default {
 </script>
 
 <style scoped>
-.headerContainer {
+.header-container {
     margin-bottom: 15px;
 }
 
-.headerText {
+.header-text {
     vertical-align: top;
     display: inline;  
     text-transform: capitalize;  

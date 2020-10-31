@@ -157,7 +157,7 @@ export default {
     z-index: 1;
     padding: 8px 0;
     /* margin-bottom: 15px; */
-    height: 67px;
+    height: 60px;
 }
 
 #nav a {

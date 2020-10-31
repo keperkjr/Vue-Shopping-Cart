@@ -3,7 +3,7 @@
 <template>
     <div id="app">
         <TopNavigation />
-        <div class="container">
+        <div class="app-container">
             <div class="sideNav">
                 <SideNavigation />
             </div>            
@@ -71,7 +71,7 @@ html, body {
     color: #2c3e50;
 }
 
-.headerText {
+.header-text {
     margin-top: 0.67em;
     margin-bottom: 0.67em;
     margin-left: 0;
@@ -141,7 +141,7 @@ html, body {
 </style>
 
 <style scoped>
-.container {
+.app-container {
     display: flex;
     justify-content: space-between;
 }
@@ -153,16 +153,26 @@ html, body {
 }
 
 .sideNav {
-    min-width: 210px;
+    width: 210px;
     display: inline-block;
     vertical-align: top;
     box-shadow: 2px 0 10px rgba(0,0,0,.1);
+    background-color: white;
+    border: 1px solid lightgrey;
 }
 
 @media screen and (max-width: 600px) {
     .sideNav {
         min-width: unset;
         width: 150px;
-    }     
+    } 
+
+    .content {
+        min-width: unset;
+    } 
+
+    .app-container {
+        justify-content: start;
+    }           
 }
 </style>

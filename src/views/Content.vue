@@ -1,5 +1,5 @@
 <template>
-    <section class="contentContainer">
+    <section class="content-container">
         <div class="products">
             <ProductList :category="slug"/>
         </div>
@@ -56,8 +56,12 @@ export default {
 }
 
 .cart {
-    min-width: 25%;
+    width: 28%;
 }
+
+.content-container {
+    margin-left: 5px;
+}  
 
 @media screen and (max-width: 1350px) {
     .cart {
@@ -67,15 +71,17 @@ export default {
 
 @media screen and (max-width: 1000px) {
     .products {
-        width: 50%;
+        width: 280px;
+        margin: unset;
+        margin-left: 25px;
     }   
 }
 
 @media screen and (max-width: 700px) {
-    .contentContainer {
+    .content-container {
         display: flex;
         justify-items: flex-start;
-        margin-left: 20px;
+        margin-left: unset;
     }    
 }
 </style>

@@ -22,7 +22,7 @@ var Utils = Utils || {};
     * @param selector: Optional. A transform function to extract values from each element.
     * @return: An array that contains distinct elements from the source sequence.
     */
-   exposed.arrayUnique = (array, selector = null) => {
+    exposed.arrayUnique = (array, selector = null) => {
         if (typeof selector !== 'function') {
             selector = (item) => item;
         }
@@ -47,7 +47,7 @@ var Utils = Utils || {};
     * @param selector: Optional. A transform function to extract values from each element.
     * @return: The maximum value in the sequence.
     */
-   exposed.arrayMax = (array, selector = null) => {
+    exposed.arrayMax = (array, selector = null) => {
         let value = arrayMinMax(array, compareType.max, selector);
         return value;
     }
@@ -91,7 +91,7 @@ var Utils = Utils || {};
     }
 
     (function (factory) {
-        /*eslint no-undef: "error"*/
+        /*global define */
         if (typeof define === 'function' && define.amd) {
             define([], factory);
         } else if (typeof exports === 'object') {

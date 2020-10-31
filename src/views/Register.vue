@@ -1,6 +1,6 @@
 <template>
     <section class="form">   
-        <article class="headerText">
+        <article class="header-text">
             {{action}}
         </article>
 
@@ -192,7 +192,7 @@ export default {
     margin-top: 15px;
 }
 
-.headerText {
+.header-text {
     vertical-align: top;
     display: inline;    
 }
