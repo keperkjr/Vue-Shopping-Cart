@@ -2,28 +2,9 @@
     <nav id="nav">
         <router-link to="/" exact>
             <div class="logo">
-                Vue Store ||
+                My Programming Notes - Store
             </div>        
         </router-link>
-        <ul class="nav-links">
-            <!-- <li class="links">
-                <router-link to="/" exact>
-                    Home
-                </router-link>
-            </li> -->
-            <!-- <li v-for="destination in destinations"
-                :key="destination.name"
-                class="links"
-            >
-            <router-link :to="getNavigationPath(destination)">
-                {{destination.name}}
-            </router-link>
-            </li>
-
-            <li class="links">
-                <router-link to="/user">Dashboard</router-link>
-            </li> -->
-        </ul>
         <div class="nav-right">      
             <ul class="nav-links">
                 <li v-if="getLoggedInUser() != null">
@@ -31,7 +12,7 @@
                         Logout {{getLoggedInUser().email}}
                     </div>                    
                 </li>
-                <li v-else class="links" >
+                <li v-else-if="!isOnLoginPage" class="links" >
                     <router-link :to="{name: 'Login', 
                         query: redirectQuery,                    
                     }">
@@ -67,9 +48,7 @@ import {mapState, mapGetters, mapActions} from 'vuex';
 
 export default {
     data() {
-        return {
-            // destinationId: this.$route.params.id,
-            // destinations: store.destinations,     
+        return {  
         }
     },
 
@@ -87,7 +66,7 @@ export default {
         },
 
         redirectQuery() {
-            return Object.assign({}, this.$route.query, {redirect: this.$route.query.redirect || this.$route.path})
+            return Object.assign({}, this.$route.query, {redirect: this.$route.query.redirect || this.$route.path});
         }, 
     },
 
@@ -192,7 +171,7 @@ export default {
 }
 
 .logo {
-    font-size: 30px;
+    font-size: 20px;
     color: #e5e5e5;
     font-weight: bold;
     margin-left: 15px;

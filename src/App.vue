@@ -138,6 +138,17 @@ html, body {
     margin: 0 18px;
     text-transform: uppercase;
 }
+
+.section-container, .products, .cart {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid lightgrey;
+    padding: 20px;
+    padding-top: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: white;
+}
 </style>
 
 <style scoped>

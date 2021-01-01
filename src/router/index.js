@@ -27,7 +27,13 @@ const routes = [
         name: "Register",
         props: true,
         component: () => import(/* webpackChunkName: "Register" */ "../views/Register.vue"),
-    },    
+    },  
+    {
+        path: "/checkout",
+        name: "Checkout",
+        props: true,
+        component: () => import(/* webpackChunkName: "Checkout" */ "../views/Checkout.vue"),
+    },      
     {
         path: "/404",
         alias: "*",

@@ -1,66 +1,58 @@
 <template>
-    <div>
-        <div class="header-text"> Cart Summary </div>
+    <section>
+        <div class="header-text"> {{title}} </div>
         <p v-show="!products.length"><i>Please add some products to cart.</i></p>
-        <!-- <ul>
-            <li v-for="product in products" :key="product.id">
-                {{product.title}} - {{product.price | currency}} - {{product.quantity}}
-                <el-button 
-                    type="primary" 
-                    size="small"
-                    plain
-                    @click="removeProductFromCart(product)">
-                    Remove 1
-                </el-button>                 
-            </li>
-        </ul> -->
 
-        <el-table v-show="products.length > 0"
-            :data="products"
-            style="width: 100%"
-            size="small"
-            >
-            <el-table-column
-                label="Item"
-                width="90"
+        <div :style="isCheckout ? 'width: 80%; margin: auto;' : ''">
+            <el-table v-show="products.length > 0"
+                :data="products"
+                style="width: 100%"
+                :size="isCheckout ? '' : 'small'"
                 >
-                <template v-slot="scope">
-                    {{ scope.row.title }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="Price"
-                width="80"
-                >
-                <template v-slot="scope">
-                    {{ scope.row.price | currency }}
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="Quantity"
-                width="100"
-                >
-                <template v-slot="scope">
-                    <div class="center">
-                        <NumberInput 
-                            :value="scope.row.quantity"
-                            :key="scope.row.quantity"
-                            :id="scope.row.id"
-                            size="mini"
-                            :min="0" :max="scope.row.quantity + scope.row.inventory"
-                            :onMin="verifyRemoval"
-                            @value-change="handleItemChange"
-                        />
-                    </div>
-                </template>
-            </el-table-column>  
-        </el-table>        
-
+                <el-table-column
+                    label="Item"
+                    :width="isCheckout ? '' : 90"
+                    >
+                    <template v-slot="scope">
+                        {{ scope.row.title }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="Price"
+                    :width="isCheckout ? '' : 80"
+                    >
+                    <template v-slot="scope">
+                        {{ scope.row.price | currency }}
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="Quantity"
+                    :width="isCheckout ? '' : 100"
+                    >
+                    <template v-slot="scope">
+                        <div :class="isCheckout ? '' : 'center'">
+                            <NumberInput 
+                                :value="scope.row.quantity"
+                                :key="scope.row.quantity"
+                                :id="scope.row.id"
+                                :size="isCheckout ? 'small' : 'mini'"
+                                :min="0" :max="scope.row.quantity + scope.row.inventory"
+                                @value-change="handleItemChange"
+                            />
+                        </div>
+                    </template>
+                </el-table-column>  
+            </el-table>        
+        </div>
+        
         <p> Total: {{total | currency}} </p>
 
-        <el-button type="primary" @click="cartCheckout()" :loading="processing"> Checkout</el-button>
+        <div v-if="isCheckout">
+            <el-button type="primary" @click="cartCheckout()" :loading="processing"> Checkout</el-button>
+        </div>
+        
         <!-- <p v-if="checkoutStatus">{{checkoutStatus}}</p> -->
-    </div>
+    </section>
 </template>
 
 <script>
@@ -76,6 +68,18 @@ export default {
             processing: false,
         }
     },
+    props: {
+        isCheckout: {
+            type: Boolean,
+            required: false,
+            default: false
+        }, 
+        title: {
+            type: String,
+            required: false,
+            default: 'Cart Summary'
+        },             
+    },    
     computed: {
         ...mapState('cart', {
             checkoutStatus: state => state.checkoutStatus,
@@ -142,7 +146,7 @@ export default {
             //{currentValue, oldValue, id}
             let showMessage = false;
             if (data.currentValue <= data.min) {         
-                let cancelRemove = await this.verifyRemoval(data);
+                let cancelRemove = await this.verifyRemoval(data.id);
                 if (cancelRemove) {
                     data.setValue(data.oldValue);
                     return; 
@@ -163,8 +167,8 @@ export default {
             }           
         },
 
-        async verifyRemoval(data) {
-            let product = this.getItem(data.id);
+        async verifyRemoval(itemId) {
+            let product = this.getItem(itemId);
             // let result = confirm(`Are you sure you want to remove ${product.title}?`);
             let cancelRemove = true;
             try {

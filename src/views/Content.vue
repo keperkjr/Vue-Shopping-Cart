@@ -39,17 +39,6 @@ export default {
 </script>
 
 <style scoped>
-.products, .cart {
-    display: inline-block;
-    vertical-align: top;
-    border: 1px solid lightgrey;
-    padding: 20px;
-    padding-top: 12px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background-color: white;
-}
-
 .products {
     min-width: 68%;
     margin-right: 10px;

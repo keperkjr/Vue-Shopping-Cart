@@ -27,14 +27,6 @@ export default {
         size: {
             type: String,
             default: "mini"
-        },
-        onMin: {
-            type: Function,
-            default: null
-        },
-        onMax: {
-            type: Function,
-            default: null
         }
     },
     methods: {
@@ -48,25 +40,6 @@ export default {
                     id: this.id,
                     setValue: this.setValue,
                 };
-                
-                // if (this.min != null && this.onMin) {
-                //     if (currentValue <= this.min) {                    
-                //         let result = this.onMin.call(this, payload);
-                //         if (result != null && !result) {
-                //             this.dataValue = oldValue;
-                //             return; 
-                //         }
-                //     }
-                // }
-                // if (this.max != null && this.onMax) {
-                //     if (currentValue >= this.max) {                    
-                //         let result = this.onMax.call(this, payload);
-                //         if (result != null && !result) {
-                //             this.dataValue = oldValue;
-                //             return; 
-                //         }
-                //     }
-                // }
                 this.$emit('value-change', payload);
             } catch(e) {
                 +e;
