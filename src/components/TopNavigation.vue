@@ -29,30 +29,93 @@
                     </router-link>
                 </li>                   
             </ul> 
-        </div>       
-    </nav>
+        </div>
 
-    <!-- <nav class="topnav" id="myTopnav">
-        <router-link to="/" exact>
-            <div class="logo">
-                My Programming Notes - Store
-            </div>        
-        </router-link>        
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-        <a href="javascript:void(0);" class="menu-icon navbar-toggler" @click="myFunction()">
-            <span class="navbar-toggler-icon"></span>
-        </a>        
-    </nav> -->
+        <button class="slide-panel-button white open right" data-for="nav-menu"></button>   
+
+        <section class="slide-panel right" id="nav-menu">
+            <div class="panel-close-section" >
+                <!-- Close button -->
+                <button class="slide-panel-button close"></button>
+
+                <div style="margin-left: 20px; height:20px; ">
+                    <div v-if="getLoggedInUser() != null">
+                        <span>
+                            Hi, {{getLoggedInUser().email}}!
+                        </span>
+                    </div>  
+
+                    <div v-else>
+                        <router-link :to="{name: 'Login', query: redirectQuery}">
+                            Welcome! Log in
+                        </router-link>                 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-header">
+                Right SlidePanel Menu
+            </div>
+
+            <div class="links">    
+                <div v-if="getLoggedInUser() != null">
+                    <div @click="logOutUser">
+                        Logout {{getLoggedInUser().email}}
+                    </div>
+                </div>  
+
+                <div v-else>
+                    <router-link :to="{name: 'Login', query: redirectQuery}">
+                        Log in
+                    </router-link>                 
+                </div>
+
+                <div>
+                    <router-link :to="{name: 'Checkout'}">
+                        <el-button type="warning" icon="el-icon-shopping-cart-full">
+                            Checkout 
+                            <span v-if="cartQuantity > 0">
+                                ({{cartQuantity}})
+                            </span>
+                        </el-button>
+                    </router-link>                    
+                </div>
+            </div>
+        </section>            
+    </nav>
 </template>
 
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex';
+import SlidePanel from "@/js/SlidePanel"
 
 export default {
     data() {
         return {  
+        }
+    },
+
+    mounted() {
+        SlidePanel.init();
+
+        let panel = document.querySelector('#nav-menu');
+        if (panel) {
+            panel.addEventListener('click', (e) => {
+                if (isUrl(e.target, panel)) {
+                    SlidePanel.close(panel);
+                }
+            });
+        }
+
+        let isUrl = (source, stop) => {
+            let elem = source;
+            while (elem && elem != stop) {
+                if ('href' in elem) {
+                    return true;
+                }
+                elem = elem.parentNode;
+            }
+            return false;
         }
     },
 
@@ -120,16 +183,7 @@ export default {
                 cancelLogout = false;
             }
             return !cancelLogout;
-        },
-
-        myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }            
-        }        
+        },      
     },
 }
 </script>
@@ -150,6 +204,7 @@ export default {
     padding: 8px 0;
     /* margin-bottom: 15px; */
     height: 60px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.10),0 2px 8px rgba(0,0,0,0.10);
 }
 
 #nav a {
@@ -159,9 +214,9 @@ export default {
     font-weight: bold;
 }
 
-#nav a.router-link-exact-active,
-#nav a.router-link-active,
-#nav a.vue-school-active-class {
+#nav .nav-right a.router-link-exact-active,
+#nav .nav-right a.router-link-active,
+#nav .nav-right a.vue-school-active-class {
     color: #ea7201;
     /* color: white; */
     /* font-style: italic; */
@@ -212,67 +267,59 @@ export default {
     color: white;
 }
 
-/* ----------------- */
+@media screen and (max-width: 800px) {
+    .nav-right {
+        display: none;
+    } 
+}
+</style>
 
-.topnav {
-    overflow: hidden;
-    background-color: #333;
+<style src="../css/SlidePanel.css"></style>
+
+<style scoped>
+.slide-panel-button.open.white:before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='35' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='12' x2='21' y2='12'%3E%3C/line%3E%3Cline x1='3' y1='6' x2='21' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='18' x2='21' y2='18'%3E%3C/line%3E%3C/svg%3E");
 }
 
-.topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
+.slide-panel .links a {
+    padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 25px;
+    color: #818181!important;
+    display: block;
 }
 
-.topnav a:hover {
-    background-color: #ddd;
+.slide-panel .links a:hover {
+    color: orangered;
+}
+
+.slide-panel .links {
+    padding-top: 40px;
+    margin: auto;
+}
+
+.menu-header {
+    margin-top: 50px; 
+    text-align: center;
+}
+
+.slide-panel-button.open:hover {
+    background-color: #818181;
+    border-radius: 10px;
+}
+
+.slide-panel-button .logout {
+    color: hsla(0,0%,100%,.5);
+    cursor: pointer;
+}
+
+.slide-panel-button .logout:hover {
     color: black;
 }
 
-.topnav a.active {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.topnav .menu-icon {
-    display: none;
-    height: 50px;
-    width: 50px;
-}
-
-@media screen and (max-width: 600px) {
-    .topnav a:not(:first-child) {display: none;}
-    .topnav a.menu-icon {
-        float: right;
-        display: block;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .topnav.responsive {position: relative;}
-    .topnav.responsive .menu-icon {
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-    .topnav.responsive a {
-        float: none;
-        display: block;
-        text-align: left;
-    }
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-.navbar-toggler {
-    color: hsla(0,0%,100%,.5);
-    border-color: hsla(0,0%,100%,.1);
+.panel-close-section {
+    padding: 13px; 
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #dadada;
 }
 </style>
