@@ -172,7 +172,7 @@ html, body {
     border: 1px solid lightgrey;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
     .sideNav {
         min-width: unset;
         width: 150px;

@@ -1,7 +1,7 @@
 <template>
     <section class="side-nav-container">
         <div class="header-container">
-            <div class="header-text"> 
+            <div class="header-text navigation"> 
                 Categories
             </div>
         </div>
@@ -217,6 +217,10 @@ export default {
 
     .category {
         text-align: center;
-    }   
+    }  
 }
+
+.header-text.navigation {
+    font-size: 18px;
+} 
 </style>

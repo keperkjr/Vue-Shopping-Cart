@@ -5,7 +5,8 @@
                 My Programming Notes - Store
             </div>        
         </router-link>
-        <div class="nav-right">      
+
+        <div class="nav-right">                   
             <ul class="nav-links">
                 <li v-if="getLoggedInUser() != null">
                     <div class="logout" @click="logOutUser">
@@ -13,34 +14,37 @@
                     </div>                    
                 </li>
                 <li v-else-if="!isOnLoginPage" class="links" >
-                    <router-link :to="{name: 'Login', 
-                        query: redirectQuery,                    
-                    }">
+                    <router-link :to="{name: 'Login', query: redirectQuery}">
                         Log in
                     </router-link>
                 </li>    
-                <!-- <li class="links">
-                    <router-link :to="{name: 'Register', 
-                        query: redirectQuery}"
-                    >
-                        Create Account
-                    </router-link>
-                </li>    -->
-                <li>
+                <li>                  
                     <router-link :to="{name: 'Checkout'}">
-                        <el-button type="warning" 
-                            icon="el-icon-shopping-cart-full"
-                        >
+                        <el-button type="warning" icon="el-icon-shopping-cart-full">
                             Checkout 
                             <span v-if="cartQuantity > 0">
                                 ({{cartQuantity}})
                             </span>
                         </el-button>
                     </router-link>
-                </li>
+                </li>                   
             </ul> 
-        </div>        
+        </div>       
     </nav>
+
+    <!-- <nav class="topnav" id="myTopnav">
+        <router-link to="/" exact>
+            <div class="logo">
+                My Programming Notes - Store
+            </div>        
+        </router-link>        
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="javascript:void(0);" class="menu-icon navbar-toggler" @click="myFunction()">
+            <span class="navbar-toggler-icon"></span>
+        </a>        
+    </nav> -->
 </template>
 
 <script>
@@ -116,6 +120,15 @@ export default {
                 cancelLogout = false;
             }
             return !cancelLogout;
+        },
+
+        myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }            
         }        
     },
 }
@@ -197,5 +210,69 @@ export default {
 
 .logout:hover {
     color: white;
+}
+
+/* ----------------- */
+
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.topnav .menu-icon {
+    display: none;
+    height: 50px;
+    width: 50px;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) {display: none;}
+    .topnav a.menu-icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .topnav.responsive {position: relative;}
+    .topnav.responsive .menu-icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .topnav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+    color: hsla(0,0%,100%,.5);
+    border-color: hsla(0,0%,100%,.1);
 }
 </style>
