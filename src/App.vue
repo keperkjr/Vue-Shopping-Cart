@@ -177,13 +177,14 @@ html, body {
         min-width: unset;
         width: 150px;
     } 
-
-    .content {
-        min-width: unset;
-    } 
-
     .app-container {
         justify-content: start;
     }           
+}
+
+@media screen and (max-width: 600px) {
+    .content {
+        min-width: unset;
+    }          
 }
 </style>

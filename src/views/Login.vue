@@ -204,4 +204,11 @@ label {
     font-size: 14px;
     font-style: italic;
 }
+
+@media screen and (max-width: 600px) {
+    .form {    
+        width: 300px;
+        margin-left: 20px;
+    }       
+}
 </style>

@@ -17,5 +17,6 @@ export default {
 <style scoped>
 .section-container {
     width: 95%;
+    margin-left: 25px;
 }
 </style>

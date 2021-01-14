@@ -1,5 +1,5 @@
 <template>
-    <nav id="nav">
+    <nav class="nav">
         <router-link to="/" exact>
             <div class="logo">
                 My Programming Notes - Store
@@ -8,16 +8,19 @@
 
         <div class="nav-right">                   
             <ul class="nav-links">
-                <li v-if="getLoggedInUser() != null">
-                    <div class="logout" @click="logOutUser">
-                        Logout {{getLoggedInUser().email}}
-                    </div>                    
-                </li>
-                <li v-else-if="!isOnLoginPage" class="links" >
-                    <router-link :to="{name: 'Login', query: redirectQuery}">
-                        Log in
-                    </router-link>
-                </li>    
+                <li class="nav-account">
+                    <span v-if="getLoggedInUser() != null">
+                        <div class="logout" @click="logOutUser">
+                            Logout {{getLoggedInUser().email}}
+                        </div>                          
+                    </span>
+                    <span v-else-if="!isOnLoginPage" class="links" >
+                        <router-link :to="{name: 'Login', query: redirectQuery}"
+                            class="header-url">
+                            Log in
+                        </router-link>                        
+                    </span>
+                </li>  
                 <li>                  
                     <router-link :to="{name: 'Checkout'}">
                         <el-button type="warning" icon="el-icon-shopping-cart-full">
@@ -31,14 +34,14 @@
             </ul> 
         </div>
 
-        <button class="slide-panel-button white open right" data-for="nav-menu"></button>   
+        <button class="slide-panel-button open right" data-for="nav-menu"></button>   
 
         <section class="slide-panel right" id="nav-menu">
-            <div class="panel-close-section" >
+            <header class="panel-close-section" >
                 <!-- Close button -->
                 <button class="slide-panel-button close"></button>
 
-                <div style="margin-left: 20px; height:20px; ">
+                <div style="height:20px; ">
                     <div v-if="getLoggedInUser() != null">
                         <span>
                             Hi, {{getLoggedInUser().email}}!
@@ -51,36 +54,57 @@
                         </router-link>                 
                     </div>
                 </div>
-            </div>
+            </header>
             
-            <div class="menu-header">
-                Right SlidePanel Menu
-            </div>
-
-            <div class="links">    
-                <div v-if="getLoggedInUser() != null">
-                    <div @click="logOutUser">
-                        Logout {{getLoggedInUser().email}}
+            <article class="content">  
+                <!-- Trending -->      
+                <div class="menu-title">
+                    Trending
+                </div>
+                <router-link :to="{name: 'Home'}">
+                    <div class="item" >
+                        Best Sellers
                     </div>
+                </router-link> 
+                <router-link :to="{name: 'Home'}">
+                    <div class="item" >
+                        New Releases
+                    </div>
+                </router-link>                
+
+                <!-- Shopping -->
+                <div class="menu-title">
+                    Shopping
+                </div>
+                <router-link :to="{name: 'Checkout'}">
+                    <div class="item" >
+                        Checkout 
+                        <span v-if="cartQuantity > 0">
+                            ({{cartQuantity}})
+                        </span>
+                    </div>
+                </router-link>
+
+                <!-- Account -->
+                <div class="menu-title">
+                    Account
+                </div>
+                <div class="item" @click="logOutUser" v-if="getLoggedInUser() != null">
+                    Logout                    
                 </div>  
-
-                <div v-else>
+                <span v-else>
+                    <router-link :to="{name: 'Register', query: redirectQuery}">
+                        <div class="item" >
+                            Create Account
+                        </div>
+                    </router-link>                     
                     <router-link :to="{name: 'Login', query: redirectQuery}">
-                        Log in
-                    </router-link>                 
-                </div>
-
-                <div>
-                    <router-link :to="{name: 'Checkout'}">
-                        <el-button type="warning" icon="el-icon-shopping-cart-full">
-                            Checkout 
-                            <span v-if="cartQuantity > 0">
-                                ({{cartQuantity}})
-                            </span>
-                        </el-button>
-                    </router-link>                    
-                </div>
-            </div>
+                        <div class="item" >
+                            Login
+                        </div>
+                    </router-link>                                         
+                </span>                                                  
+            </article>
         </section>            
     </nav>
 </template>
@@ -193,7 +217,7 @@ export default {
     display: inline-block;
 }
 
-#nav {
+.nav {
     display: flex;
     align-items: center;
     position: sticky;
@@ -205,18 +229,22 @@ export default {
     /* margin-bottom: 15px; */
     height: 60px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.10),0 2px 8px rgba(0,0,0,0.10);
+    z-index: 99999;
 }
 
-#nav a {
+.nav a {
+    text-decoration: none;    
+}
+
+.nav .header-url {
     color: #42b983;
     color: #4CAF50;
-    text-decoration: none;
     font-weight: bold;
 }
 
-#nav .nav-right a.router-link-exact-active,
-#nav .nav-right a.router-link-active,
-#nav .nav-right a.vue-school-active-class {
+.nav .nav-right a.router-link-exact-active,
+.nav .nav-right a.router-link-active,
+.nav .nav-right a.vue-school-active-class {
     color: #ea7201;
     /* color: white; */
     /* font-style: italic; */
@@ -245,6 +273,12 @@ export default {
     margin-left: 15px;
 }
 
+@media screen and (max-width: 600px) {
+    .logo {
+        font-size: 16px;
+    }         
+}
+
 .nav-right {
     position: absolute;
     right: 0;   
@@ -268,7 +302,7 @@ export default {
 }
 
 @media screen and (max-width: 800px) {
-    .nav-right {
+    .nav-right .nav-account {
         display: none;
     } 
 }
@@ -277,8 +311,20 @@ export default {
 <style src="../css/SlidePanel.css"></style>
 
 <style scoped>
-.slide-panel-button.open.white:before {
+.slide-panel-button.open:before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='35' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='12' x2='21' y2='12'%3E%3C/line%3E%3Cline x1='3' y1='6' x2='21' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='18' x2='21' y2='18'%3E%3C/line%3E%3C/svg%3E");
+}
+
+.slide-panel-button.close:before {
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='35' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+}
+
+.slide-panel-button:hover {
+    background-color: #818181;
+}
+
+.slide-panel-button.open:hover {
+    border-radius: 8px;
 }
 
 .slide-panel .links a {
@@ -294,7 +340,6 @@ export default {
 }
 
 .slide-panel .links {
-    padding-top: 40px;
     margin: auto;
 }
 
@@ -303,9 +348,8 @@ export default {
     text-align: center;
 }
 
-.slide-panel-button.open:hover {
-    background-color: #818181;
-    border-radius: 10px;
+.slide-panel .content {
+    text-align: left;
 }
 
 .slide-panel-button .logout {
@@ -320,6 +364,40 @@ export default {
 .panel-close-section {
     padding: 13px; 
     background-color: #f4f4f4;
+    background-color: #55616f;
+    color: white;
     border-bottom: 1px solid #dadada;
+    text-align: center;
+}
+
+.panel-close-section, .panel-close-section a {
+    color: white;
+}
+
+.slide-panel .item {
+    padding: 12px;
+    padding-left: 28px;
+    border-bottom: 1px solid lightgray;
+    cursor: pointer;
+}
+
+.slide-panel .item, .slide-panel .item a {
+    color: #2c3e50;
+}
+
+.slide-panel .item:hover {
+    background-color: #eaeded;
+    background-color: #f4f4f4;
+    background-color: #eee;
+    /* cursor: pointer; */
+}
+
+.slide-panel .menu-title {
+    padding: 23px 8px 4px 15px;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #111;
+    text-transform: capitalize;    
 }
 </style>
