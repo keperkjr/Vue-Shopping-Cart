@@ -246,7 +246,12 @@ export default {
 .nav .header-url {
     color: #42b983;
     color: #4CAF50;
+    color: hsla(0,0%,100%,.5);
     font-weight: bold;
+}
+
+.nav .header-url:hover {
+    color: hsla(0,0%,100%,.75);
 }
 
 .nav .nav-right a.router-link-exact-active,
@@ -282,7 +287,7 @@ export default {
 
 .logo .image {
     height: 20px;
-    margin-right: 8px;
+    margin-right: 9px;
     transform: translateY(8%);
 }
 
