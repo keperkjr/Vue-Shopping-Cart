@@ -30,7 +30,7 @@ export default {
         getUserIndex(state, getters) {
             return ({id, email}) => {
                 return state.users.findIndex(
-                    item => item.id === id || item.email === email
+                    item => item.id === id || item.email.toLowerCase() === email.toLowerCase()
                 );
             }  
         },

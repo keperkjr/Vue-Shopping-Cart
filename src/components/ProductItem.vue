@@ -63,13 +63,16 @@ export default {
             addProductToCart: 'cart/addProductToCart',
         }),
         getImageSrc() {
-            let image = this.product.image || 'https://www.immigrantmagazine.com/wp-content/uploads/2020/07/no-image-available-png-3.png';
+            let image = this.product.image ? this.product.image : 'no-image.png';
             if (this.isSoldOut) {
-                image = "https://www.freepngimg.com/thumb/sold_out/9-2-sold-out-png-pic-thumb.png";
+                image = 'sold-out.png';
             }
-            return image;
-        }
-
+            let path = image;
+            try {
+                path = require(`@/assets/${image}`);
+            } catch (e) {+e;}            
+            return path;
+        }, 
     }
 }
 </script>

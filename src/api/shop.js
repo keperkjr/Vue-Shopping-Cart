@@ -1,6 +1,8 @@
 /**
  * Mocking client-server processing
  */
+// The images below are stored in the 'assets' folder. You could 
+// also use an image hosted online as the image source
 const _products = [
     {
         "id": 1, 
@@ -8,7 +10,8 @@ const _products = [
         "iPad 4 Mini", 
         "price": 500.01, 
         "inventory": 2, 
-        "image": 'https://images-na.ssl-images-amazon.com/images/I/61V9XmqGscL._AC_SX679_.jpg',
+        // Source: https://images-na.ssl-images-amazon.com/images/I/61V9XmqGscL._AC_SX679_.jpg
+        "image": 'ipad.jpg',
         "categories": ["Electronics"],
     },
     {
@@ -16,7 +19,8 @@ const _products = [
         "title": "H&M T-Shirt White", 
         "price": 10.99, 
         "inventory": 10, 
-        "image": 'https://i.pinimg.com/474x/ea/ac/ef/eaacef3ef23baa14d93cc51aeb3e2bae.jpg',
+        // Source: https://i.pinimg.com/474x/ea/ac/ef/eaacef3ef23baa14d93cc51aeb3e2bae.jpg
+        "image": 't-shirt.jpg',
         "categories": ["Clothing"], 
     },
     {
@@ -24,7 +28,8 @@ const _products = [
         "title": "Charli XCX - Sucker CD", 
         "price": 19.99, 
         "inventory": 5, 
-        "image": 'https://img.discogs.com/OdNOxMrIDLtuhxG3jAoMuy1sKg4=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-6417881-1582920045-4712.jpeg.jpg',
+        // Source: https://img.discogs.com/OdNOxMrIDLtuhxG3jAoMuy1sKg4=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-6417881-1582920045-4712.jpeg.jpg
+        "image": 'sucker-cd.jpg',
         "categories": ["Music", "Electronics"]
     },
 ]
