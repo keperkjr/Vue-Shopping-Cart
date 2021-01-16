@@ -1,4 +1,4 @@
-# shopping-cart
+# My Programming Notes - Vue Store
 
 ## Project setup
 ```

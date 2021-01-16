@@ -11,7 +11,7 @@
                 <!-- :class="[$route.path === '/' ? 'active' : '']" -->
                 <div class="category">
                     <div class="icon home"></div>
-                    Home
+                    <span class="description"> Home </span>
                 </div> 
             </router-link>
             <span v-for="category in categories" :key="category" >
@@ -64,8 +64,8 @@ export default {
 
         categoryDisplay(category) {
             return `
-                <div class="icon ${this.getCssClass(category)}"></div>
-                ${category}
+                <div class="icon ${this.getCssClass(category)}"></div>                
+                <span class="description"> ${category} </span>
             `;
         },
 
@@ -120,6 +120,10 @@ export default {
     transition: background 400ms;
     /* border-left: 3px solid #ea7201; */
     font-weight: bold;
+    white-space: nowrap; 
+    width: 100%; 
+    overflow: hidden;
+    text-overflow: ellipsis;   
 }
 
 .category:hover {
@@ -164,6 +168,15 @@ export default {
         display: none;
     }     
 } */
+
+@media screen and (max-width: 700px) {
+    .categories {
+        margin-top: 10px;
+    } 
+    .header-container {
+        display: none;
+    }      
+}
 </style>
 
 <style>
@@ -217,7 +230,11 @@ export default {
 
     .category {
         text-align: center;
-    }  
+    } 
+
+    .category .description {
+        display: none;
+    }          
 }
 
 .header-text.navigation {

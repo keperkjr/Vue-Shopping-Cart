@@ -3,7 +3,7 @@
         <div class="header-text"> {{title}} </div>
         <p v-show="!products.length"><i>Please add some products to cart.</i></p>
 
-        <div :style="isCheckout ? 'width: 80%; margin: auto;' : ''">
+        <div :style="isCheckout ? 'margin: auto; overflow: auto;' : ''">
             <el-table v-show="products.length > 0"
                 :data="products"
                 style="width: 100%"
@@ -35,7 +35,7 @@
                                 :value="scope.row.quantity"
                                 :key="scope.row.quantity"
                                 :id="scope.row.id"
-                                :size="isCheckout ? 'small' : 'mini'"
+                                :size="isCheckout ? 'mini' : 'mini'"
                                 :min="0" :max="scope.row.quantity + scope.row.inventory"
                                 @value-change="handleItemChange"
                             />
@@ -199,4 +199,10 @@ export default {
     vertical-align: top;
     display: inline;
 }
+</style>
+
+<style>
+.el-table .cell {
+    padding-left: 2px!important;
+} 
 </style>

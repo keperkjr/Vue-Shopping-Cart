@@ -164,7 +164,7 @@ export default {
     padding: 20px;
     border-radius: 8px;
     background-color: white;
-    margin-top: 15px;
+    /* margin-top: 15px; */
 }
 
 .header-text {
@@ -207,8 +207,8 @@ label {
 
 @media screen and (max-width: 600px) {
     .form {    
-        width: 300px;
-        margin-left: 20px;
+        width: 85%;
+        margin-left: 2px;
     }       
 }
 </style>

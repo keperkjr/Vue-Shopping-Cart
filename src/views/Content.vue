@@ -55,22 +55,32 @@ export default {
 @media screen and (max-width: 1350px) {
     .cart {
         display: none;
-    }
+    }    
 }
 
 @media screen and (max-width: 1000px) {
     .products {
         width: 280px;
         margin: unset;
-        margin-left: 25px;
+        margin-left: 47px;
     }   
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
+    .products {
+        width: 85%;
+    } 
+
     .content-container {
         display: flex;
         justify-items: flex-start;
         margin-left: unset;
     }    
+}
+
+@media screen and (max-width: 500px) {
+    .products {
+        margin-left: 26px;
+    } 
 }
 </style>

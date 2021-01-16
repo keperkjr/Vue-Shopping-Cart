@@ -24,7 +24,7 @@
                 <li>                  
                     <router-link :to="{name: 'Checkout'}">
                         <el-button type="warning" icon="el-icon-shopping-cart-full">
-                            Checkout 
+                            <span class="checkout-text"> Checkout </span> 
                             <span v-if="cartQuantity > 0">
                                 ({{cartQuantity}})
                             </span>
@@ -37,11 +37,11 @@
         <button class="slide-panel-button open right" data-for="nav-menu"></button>   
 
         <section class="slide-panel right" id="nav-menu">
-            <header class="panel-close-section" >
+            <header class="slide-panel-header" >
                 <!-- Close button -->
                 <button class="slide-panel-button close"></button>
 
-                <div style="height:20px; ">
+                <div class="text">
                     <div v-if="getLoggedInUser() != null">
                         <span>
                             Hi, {{getLoggedInUser().email}}!
@@ -84,6 +84,11 @@
                         </span>
                     </div>
                 </router-link>
+                <router-link :to="{name: 'Home'}">
+                    <div class="item" >
+                        Wish List
+                    </div>
+                </router-link>                
 
                 <!-- Account -->
                 <div class="menu-title">
@@ -229,7 +234,7 @@ export default {
     /* margin-bottom: 15px; */
     height: 60px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.10),0 1px 4px rgba(0,0,0,0.10),0 2px 8px rgba(0,0,0,0.10);
-    z-index: 99999;
+    z-index: 2;
 }
 
 .nav a {
@@ -273,16 +278,10 @@ export default {
     margin-left: 15px;
 }
 
-@media screen and (max-width: 600px) {
-    .logo {
-        font-size: 16px;
-    }         
-}
-
 .nav-right {
     position: absolute;
     right: 0;   
-    margin-right: 45px;
+    margin-right: 60px;
 }
 
 .el-button--warning {
@@ -304,7 +303,22 @@ export default {
 @media screen and (max-width: 800px) {
     .nav-right .nav-account {
         display: none;
-    } 
+    }     
+}
+
+@media screen and (max-width: 500px) {
+    .checkout-text {
+        display: none;
+    }
+    .logo {
+        font-size: 16px;
+    }          
+}
+
+@media screen and (max-width: 400px) {
+    .logo {
+        font-size: 12.5px;
+    }          
 }
 </style>
 
@@ -361,7 +375,7 @@ export default {
     color: black;
 }
 
-.panel-close-section {
+.slide-panel-header {
     padding: 13px; 
     background-color: #f4f4f4;
     background-color: #55616f;
@@ -370,7 +384,7 @@ export default {
     text-align: center;
 }
 
-.panel-close-section, .panel-close-section a {
+.slide-panel-header, .slide-panel-header a {
     color: white;
 }
 
@@ -399,5 +413,13 @@ export default {
     line-height: 24px;
     color: #111;
     text-transform: capitalize;    
+}
+
+.slide-panel-header .text {
+    height:20px;
+}
+
+.slide-panel-button.right {
+    margin-right: 6px;
 }
 </style>

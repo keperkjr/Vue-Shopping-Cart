@@ -4,7 +4,7 @@
     <div id="app">
         <TopNavigation />
         <div class="app-container">
-            <div class="sideNav">
+            <div class="side-nav">
                 <SideNavigation />
             </div>            
             <div class="content">                       
@@ -160,10 +160,11 @@ html, body {
 .content {
     display: inline-block;
     margin-top: 25px;
-    min-width: 85%;
+    /* min-width: 85%; */
+    width: 85%;
 }
 
-.sideNav {
+.side-nav {
     width: 210px;
     display: inline-block;
     vertical-align: top;
@@ -173,18 +174,26 @@ html, body {
 }
 
 @media screen and (max-width: 800px) {
-    .sideNav {
+    .side-nav {
         min-width: unset;
         width: 150px;
+        min-width: 150px;
     } 
     .app-container {
         justify-content: start;
     }           
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
+    .side-nav {
+        width: 65px;
+        min-width: 65px;
+    }         
+}
+
+/* @media screen and (max-width: 600px) {
     .content {
         min-width: unset;
     }          
-}
+} */
 </style>
