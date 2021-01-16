@@ -319,7 +319,7 @@ export default {
     }     
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 560px) {
     .checkout-text {
         display: none;
     }
