@@ -7,7 +7,7 @@
 // ============================================================================ 
 
 // The images below are stored in the 'assets' folder. You could 
-// also use an image hosted online as the image source
+// also use an image url hosted online as the image source
 const _products = [
     {
         'id': 1, 
