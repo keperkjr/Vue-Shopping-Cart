@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 19, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  SideNavigation.vue
+//    Description: Displays product categories in a side nav panel 
+// ============================================================================ 
+-->
 <template>
     <section class="side-nav-container">
         <div class="header-container">

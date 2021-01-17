@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 16, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  NumberInput.vue
+//    Description: Number input textbox
+// ============================================================================ 
+-->
 <template>
     <span>
         <el-input-number v-model="dataValue"

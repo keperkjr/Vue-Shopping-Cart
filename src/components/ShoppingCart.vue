@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 13, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  ShoppingCart.vue
+//    Description: Shopping cart that processes final quantities and payment 
+// ============================================================================ 
+-->
 <template>
     <section>
         <div class="header-text"> {{title}} </div>

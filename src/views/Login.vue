@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 21, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  Login.vue
+//    Description: The account login page for the site
+// ============================================================================ 
+-->
 <template>
     <section class="form">   
         <article class="header-text">
@@ -95,16 +104,17 @@ export default {
         async logInUser() {
             try {
                 this.isLoading = true;
+
+                // Authenticate user against API
                 this.validate();
 
-                await this.logIn(this.email);
+                let user = await this.logIn(this.email);
 
                 this.$message({
                     type: 'success',
-                    message: `Welcome back ${this.email}!`
+                    message: `Welcome back ${user.email}!`
                 });                
 
-                // Authenticate user against API
                 const redirectPath = this.$route.query.redirect || '/';
                 this.$router.push(redirectPath);
             } catch (e) {

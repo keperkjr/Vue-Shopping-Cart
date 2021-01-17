@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Dec 31, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  Checkout.vue
+//    Description: The checkout page where user submits products for payment
+// ============================================================================ 
+-->
 <template>
     <section class="section-container">
         <ShoppingCart :isCheckout="true" :title="'Checkout'" />      

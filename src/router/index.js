@@ -1,3 +1,10 @@
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 13, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  index.js
+//    Description: Router index file which sets up the routes for the project
+// ============================================================================ 
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";

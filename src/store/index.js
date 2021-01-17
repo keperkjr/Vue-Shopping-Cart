@@ -1,3 +1,10 @@
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 13, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  index.js
+//    Description: Vuex index file that sets up the store for the project
+// ============================================================================ 
 import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from 'vuex-persistedstate'

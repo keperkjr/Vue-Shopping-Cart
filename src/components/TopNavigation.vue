@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 15, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  TopNavigation.vue
+//    Description: Displays the main top navigation panel 
+// ============================================================================ 
+-->
 <template>
     <nav class="nav">
         <router-link to="/" exact>

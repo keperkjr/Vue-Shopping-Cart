@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 15, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  NotFound.vue
+//    Description: The not found page of the site
+// ============================================================================ 
+-->
 <template>
     <div class="margin">
         <h1>Page Not Found: {{$route.path}}</h1>

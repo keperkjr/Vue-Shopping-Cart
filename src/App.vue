@@ -1,5 +1,12 @@
-<!-- https://vueschool.io/lessons/create-a-new-project-with-vue-cli -->
-
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 13, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  App.vue
+//    Description: The main app page for the site
+// ============================================================================ 
+-->
 <template>
     <div id="app">
         <TopNavigation />

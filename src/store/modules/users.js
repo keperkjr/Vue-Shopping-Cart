@@ -1,4 +1,10 @@
-import shop from "@/api/shop"
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 21, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  users.js
+//    Description: Vuex store users namespace
+// ============================================================================ 
 import Utils from "@/js/utils"
 
 export default {

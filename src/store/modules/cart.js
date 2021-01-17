@@ -1,3 +1,10 @@
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 13, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  cart.js
+//    Description: Vuex store cart namespace
+// ============================================================================ 
 import shop from "@/api/shop"
 
 export default {

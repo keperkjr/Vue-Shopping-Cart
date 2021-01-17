@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 13, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  ProductList.vue
+//    Description: Displays the products for a given category 
+// ============================================================================ 
+-->
 <template>
     <section> 
         <div class="header-container">

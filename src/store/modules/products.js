@@ -1,3 +1,10 @@
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 13, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  products.js
+//    Description: Vuex store products namespace
+// ============================================================================ 
 import shop from "@/api/shop"
 import Utils from "@/js/utils"
 

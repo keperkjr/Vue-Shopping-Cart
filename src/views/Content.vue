@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 20, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  Content.vue
+//    Description: Displays the main content (products)
+// ============================================================================ 
+-->
 <template>
     <section class="content-container">
         <div class="products">
@@ -37,6 +46,28 @@ export default {
     }    
 }
 </script>
+
+<style scoped>
+.products, .cart {
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid lightgrey;
+    padding: 20px;
+    padding-top: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.products {
+    min-width: 72%;
+    margin-right: 10px;
+}
+
+.cart {
+    min-width: 25%;
+}
+</style>
 
 <style scoped>
 .products {

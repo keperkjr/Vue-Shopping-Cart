@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 14, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  ProductItem.vue
+//    Description: Displays a product to the page
+// ============================================================================ 
+-->
 <template>
     <section class="container">
         <article class="image-container" 

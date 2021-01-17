@@ -1,3 +1,12 @@
+<!-- 
+// ============================================================================
+//    Author: Kenneth Perkins
+//    Date:   Oct 21, 2020
+//    Taken From: http://programmingnotes.org/
+//    File:  Register.vue
+//    Description: The create account page of the site
+// ============================================================================ 
+-->
 <template>
     <section class="form">   
         <article class="header-text">
@@ -112,7 +121,7 @@ export default {
                 this.isLoading = true;
                 this.validate();
 
-                // Add te user to the store
+                // Add the user to the store
                 await this.createUser({
                     email: this.email,
                     password: this.password,
