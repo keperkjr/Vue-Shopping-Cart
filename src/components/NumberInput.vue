@@ -58,6 +58,7 @@ export default {
         },
         setValue(value) {
             this.dataValue = value;
+            this.update();
         },
         update() {
             this.componentKey++;

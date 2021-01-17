@@ -15,6 +15,7 @@
         <div :style="isCheckout ? 'margin: auto; overflow: auto;' : ''">
             <el-table v-show="products.length > 0"
                 :data="products"
+                :key="products.length"
                 style="width: 100%"
                 :size="isCheckout ? '' : 'small'"
                 >
