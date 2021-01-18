@@ -291,7 +291,7 @@ export default {
     font-size: 20px;
     color: #e5e5e5;
     font-weight: bold;
-    margin-left: 15px;
+    margin-left: 15px;    
 }
 
 .logo .image {
@@ -333,7 +333,7 @@ export default {
     }     
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 600px) {
     .checkout-text {
         display: none;
     }
@@ -345,9 +345,19 @@ export default {
     }
 }
 
+@media screen and (max-width: 560px) {
+    .logo {
+        font-size: 13px;
+    }  
+    .logo .image {
+        margin-right: 3px;
+    }            
+}
+
 @media screen and (max-width: 400px) {
     .logo {
-        font-size: 12.5px;
+        font-size: 11px;
+        width: 180px;
     }          
 }
 </style>
