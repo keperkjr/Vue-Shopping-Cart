@@ -58,6 +58,8 @@
         <p> Total: {{total | currency}} </p>
 
         <div v-if="isCheckout">
+            <el-button v-show="products.length > 0" plain @click="cartClear()"> Clear Cart</el-button>
+
             <el-button type="primary" @click="cartCheckout()" :loading="processing"> Checkout</el-button>
         </div>
         
@@ -120,6 +122,10 @@ export default {
         },
 
         async cartClear() {
+            let cancelClear = await this.verifyClear();
+            if (cancelClear) {
+                return;
+            }
             await this.clear();
         },        
 
@@ -176,6 +182,25 @@ export default {
                 }); 
             }           
         },
+
+        async verifyClear() {
+            let cancelClear = true;
+            try {
+                await this.$confirm(`Are you sure you want to clear the cart?`, 'Clear Cart?', {
+                    confirmButtonText: 'Cancel',
+                    cancelButtonText: `Yes, Clear Cart`, 
+                    type: 'warning',
+                    closeOnClickModal: false,
+                    closeOnPressEscape: false,
+                    confirmButtonClass: 'el-button',
+                    cancelButtonClass: 'el-button--danger',
+                    showClose: false,
+                });
+            } catch (e) {
+                cancelClear = false;
+            }
+            return cancelClear;
+        },        
 
         async verifyRemoval(itemId) {
             let product = this.getItem(itemId);

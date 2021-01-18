@@ -264,8 +264,7 @@ export default {
 }
 
 .nav .nav-right a.router-link-exact-active,
-.nav .nav-right a.router-link-active,
-.nav .nav-right a.vue-school-active-class {
+.nav .nav-right a.router-link-active {
     color: #ea7201;
     /* color: white; */
     /* font-style: italic; */

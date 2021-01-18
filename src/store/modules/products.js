@@ -96,12 +96,3 @@ function filterCategory(products, category) {
         return item != null;
     });    
 }
-
-// // https://stackoverflow.com/a/60610161
-// function getProductItem(state, id) {
-//     return state.items[getProductItemIndex(state, id)];
-// }
-
-// function getProductItemIndex(state, {id}) {
-//     return state.items.findIndex(item => item.id === id);
-// }
