@@ -172,6 +172,10 @@ export default {
     font-weight: bold;
 }
 
+.el-button--primary:hover {
+    color: #fff;
+}
+
 @media screen and (max-width: 950px) {
     .container {
         border: 1px solid lightgrey;

@@ -309,7 +309,12 @@ export default {
 .el-button--warning {
     background-color: #ffc107;
     font-weight: bold;
-    color: whitesomke;
+}
+
+.el-button--warning:focus, .el-button--warning:hover {
+	background: #ebb563;
+	border-color: #ebb563;
+	color: #FFF;
 }
 
 .logout {
