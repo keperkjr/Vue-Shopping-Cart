@@ -172,7 +172,7 @@ export default {
     font-weight: bold;
 }
 
-.el-button--primary:hover {
+.el-button--primary.is-plain:focus, .el-button--primary.is-plain:hover {
     color: #fff;
 }
 

@@ -126,7 +126,12 @@ export default {
             if (cancelClear) {
                 return;
             }
+            let prevQuantity = this.quantity;
             await this.clear();
+            this.$message({
+                type: 'success',
+                message: `${prevQuantity} item${prevQuantity == 1 ? '' : 's'} removed from the cart!`
+            }); 
         },        
 
         async cartCheckout() {
